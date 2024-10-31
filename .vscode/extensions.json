@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "arcanis.vscode-zipfs",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "aaron-bond.better-comments",
+    "streetsidesoftware.code-spell-checker",
+    "naumovs.color-highlight",
+    "editorconfig.editorconfig",
+    "eamodio.gitlens",
+    "oderwat.indent-rainbow",
+    "pkief.material-icon-theme"
+  ]
+}
