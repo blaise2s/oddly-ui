@@ -42,7 +42,6 @@ export const FilterList = <T,>({
 }: FilterListProps<T>) => {
   const useImageGrayscaleAsCheckbox = _useImageGrayscaleAsCheckbox && imageProp;
 
-  // TODO: Can I initialize this in a better way?
   const [checked, setChecked] = useState(
     initialSelectedIndices
       ? items.map((_, index) => {

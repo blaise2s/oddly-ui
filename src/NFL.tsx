@@ -73,14 +73,16 @@ const Tabs: Tab[] = [
 ];
 
 const InitiallySelectedSeasonsIndices = [0];
-const InitiallySelectedTeamIndices = 'all';
+const InitiallySelectedTeamIndices = [11];
 
 export const NFL = () => {
   const [activeTabId, setActiveTabId] = useState<TabId>(TabIds.Games);
   const [selectedSeasons, setSelectedSeasons] = useState<number[]>([
     ...InitiallySelectedSeasonsIndices.map((idx) => NFL_SEASONS[idx]),
   ]);
-  const [selectedTeams, setSelectedTeams] = useState<NFLTeam[]>(NFL_TEAMS);
+  const [selectedTeams, setSelectedTeams] = useState<NFLTeam[]>([
+    ...InitiallySelectedTeamIndices.map((idx) => NFL_TEAMS[idx]),
+  ]);
 
   const { data: games, isFetching: loadingGames } = useFetchNflGames({
     seasons: selectedSeasons,

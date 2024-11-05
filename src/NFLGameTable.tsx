@@ -141,9 +141,13 @@ export const NFLGameTable = ({ games }: NFLGameTableProps) => {
         </TableHead>
         <TableBody>
           {!games || games.length <= 0 ? (
-            <Typography>
-              TODO: Message for when no games meet criteria...
-            </Typography>
+            <TableRow>
+              <StyledTableCell colSpan={Columns.length} align='center'>
+                <Typography p='2rem'>
+                  No data to display, refine search criteria.
+                </Typography>
+              </StyledTableCell>
+            </TableRow>
           ) : (
             games.map(
               ({

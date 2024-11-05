@@ -155,7 +155,7 @@ export const NFLStats = ({ games }: NFLStatsProps) => {
                 : getPercentage({
                     stat: value,
                     total: totalGames,
-                    fractionalDigits: 3,
+                    fractionalDigits: 2,
                   })
             }
           />

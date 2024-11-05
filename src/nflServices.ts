@@ -25,7 +25,7 @@ export const useFetchNflGames = ({
   teams,
 }: NflGamesPayload) => {
   return useQuery({
-    queryKey: [NFLQueryKeys.Games, ...seasons, ...(teams ? teams : [])],
+    queryKey: [NFLQueryKeys.Games, seasons, teams],
     queryFn: () => getNflGames({ seasons, teams }),
     refetchOnWindowFocus: false,
   });
