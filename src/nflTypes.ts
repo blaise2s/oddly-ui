@@ -1,6 +1,6 @@
 type Location = 'FAVORITE' | 'UNDERDOG' | 'NEUTRAL';
-type SpreadResult = 'WIN' | 'LOSS' | 'PUSH';
-type OverUnderResult = 'OVER' | 'UNDER' | 'PUSH';
+export type SpreadResult = 'WIN' | 'LOSS' | 'PUSH';
+export type OverUnderResult = 'OVER' | 'UNDER' | 'PUSH';
 
 export interface NFLGame {
   id: number;
@@ -30,5 +30,5 @@ export interface NFLGame {
 
 export interface NFLTeam {
   name: string;
-  image?: string;
+  image: string;
 }

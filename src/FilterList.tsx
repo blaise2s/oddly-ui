@@ -123,7 +123,7 @@ export const FilterList = <T,>({
                       !isChecked && { filter: 'grayscale(100%)' }),
                   }}
                   src={item[imageProp] as string}
-                ></Box>
+                />
               )}
               <ListItemText id={labelId} primary={displayText} />
             </ListItemButton>

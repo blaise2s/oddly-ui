@@ -45,3 +45,9 @@ export const NFL_SEASONS = [
   1998, 1997, 1996, 1995, 1994, 1993, 1992, 1991, 1990, 1989, 1988, 1987, 1986,
   1985, 1984, 1983, 1982, 1981, 1980, 1979,
 ];
+
+export const NFLTeamLogoMap = new Map<string, string>(
+  NFL_TEAMS.map<[string, string]>(({ name, image }) => {
+    return [name, image];
+  }),
+);
