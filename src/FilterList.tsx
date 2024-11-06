@@ -10,6 +10,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import { useState } from 'react';
+import { Selectable } from './globalTypes';
 
 interface ExpandableProps {
   listName: string;
@@ -17,10 +18,9 @@ interface ExpandableProps {
   startOpen?: boolean;
 }
 
-interface FilterListProps<T> {
+interface FilterListProps<T extends Selectable> {
   items: T[];
   onSelected: (selected: T[]) => void;
-  initialSelectedIndices?: 'all' | number[];
   textProp?: keyof T;
   imageProp?: keyof T;
   expandable?: ExpandableProps;
@@ -29,10 +29,9 @@ interface FilterListProps<T> {
   useImageGrayscaleAsCheckbox?: boolean;
 }
 
-export const FilterList = <T,>({
+export const FilterList = <T extends Selectable>({
   items,
   onSelected,
-  initialSelectedIndices,
   textProp,
   imageProp,
   expandable,
@@ -40,38 +39,17 @@ export const FilterList = <T,>({
   selectionMax,
   useImageGrayscaleAsCheckbox: _useImageGrayscaleAsCheckbox,
 }: FilterListProps<T>) => {
+  const numSelected = items.filter((item) => item.selected).length;
   const useImageGrayscaleAsCheckbox = _useImageGrayscaleAsCheckbox && imageProp;
 
-  const [checked, setChecked] = useState(
-    initialSelectedIndices
-      ? items.map((_, index) => {
-          return initialSelectedIndices === 'all'
-            ? true
-            : initialSelectedIndices.includes(index);
-        })
-      : items.map(() => false),
-  );
   const [expanded, setExpanded] = useState(
     expandable?.startOpen ? true : false,
   );
-  const [numSelected, setNumSelected] = useState(
-    initialSelectedIndices ? initialSelectedIndices.length : 0,
-  );
 
   const handleToggle = (index: number) => () => {
-    setChecked((currentChecked) => {
-      const newChecked = [...currentChecked];
-      newChecked[index] = !currentChecked[index];
-      const selected = newChecked.reduce<T[]>((accumulator, checked, index) => {
-        if (checked) {
-          accumulator.push(items[index]);
-        }
-        return accumulator;
-      }, []);
-      setNumSelected(selected.length);
-      onSelected(selected);
-      return newChecked;
-    });
+    const updatedItems = [...items];
+    updatedItems[index].selected = !items[index].selected;
+    onSelected(updatedItems);
   };
 
   const handleExpandClick = () => {
@@ -83,7 +61,7 @@ export const FilterList = <T,>({
       <List disablePadding>
         {items.map((item, index) => {
           const labelId = `checkbox-${index}`;
-          const isChecked = checked[index];
+          const isChecked = item.selected;
           const displayText = (textProp ? item[textProp] : item) as string;
           const disabledBySelectionMin = Boolean(
             isChecked && selectionMin && numSelected <= selectionMin,

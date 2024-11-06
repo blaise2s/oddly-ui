@@ -1,3 +1,6 @@
+import { AdditionalFilter, Selectable } from './globalTypes';
+import { NFLTabIds } from './nflConstants';
+
 type Location = 'FAVORITE' | 'UNDERDOG' | 'NEUTRAL';
 export type SpreadResult = 'WIN' | 'LOSS' | 'PUSH';
 export type OverUnderResult = 'OVER' | 'UNDER' | 'PUSH';
@@ -28,7 +31,50 @@ export interface NFLGame {
   notes?: string;
 }
 
-export interface NFLTeam {
+export const NFL_DIVISIONS = {
+  NFC_NORTH: 'NFC North',
+  NFC_EAST: 'NFC East',
+  NFC_SOUTH: 'NFC South',
+  NFC_WEST: 'NFC West',
+  AFC_NORTH: 'AFC North',
+  AFC_EAST: 'AFC East',
+  AFC_SOUTH: 'AFC South',
+  AFC_WEST: 'AFC West',
+} as const;
+export type NFL_DIVISION = (typeof NFL_DIVISIONS)[keyof typeof NFL_DIVISIONS];
+
+export interface NFLTeam extends Selectable {
   name: string;
   image: string;
+  division: NFL_DIVISION;
+}
+
+export interface NFLSeason extends Selectable {
+  year: number;
+}
+
+export const NFLAdditionalFilterNames = {
+  HeadToHead: 'Head to Head',
+  NFC_North: NFL_DIVISIONS.NFC_NORTH,
+  NFC_East: NFL_DIVISIONS.NFC_EAST,
+  NFC_South: NFL_DIVISIONS.NFC_SOUTH,
+  NFC_West: NFL_DIVISIONS.NFC_WEST,
+  AFC_North: NFL_DIVISIONS.AFC_NORTH,
+  AFC_East: NFL_DIVISIONS.AFC_EAST,
+  AFC_South: NFL_DIVISIONS.AFC_SOUTH,
+  AFC_West: NFL_DIVISIONS.AFC_WEST,
+} as const;
+export type NFLAdditionalFilterName =
+  (typeof NFLAdditionalFilterNames)[keyof typeof NFLAdditionalFilterNames];
+
+export interface NFLAdditionalFilter extends AdditionalFilter {
+  name: NFLAdditionalFilterName;
+  division?: NFL_DIVISION;
+}
+
+export type NFLTabId = (typeof NFLTabIds)[keyof typeof NFLTabIds];
+
+export interface NFLTab {
+  tabId: NFLTabId;
+  label: string;
 }

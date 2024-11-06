@@ -1,4 +1,9 @@
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import CheckIcon from '@mui/icons-material/Check';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CloseIcon from '@mui/icons-material/Close';
+import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import {
   Box,
   styled,
@@ -15,11 +20,6 @@ import {
 import { format, toDate } from 'date-fns';
 import { NFLTeamLogoMap } from './nflConstants';
 import { NFLGame, OverUnderResult, SpreadResult } from './nflTypes';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import LocalParkingIcon from '@mui/icons-material/LocalParking';
-import CloseIcon from '@mui/icons-material/Close';
-import CheckIcon from '@mui/icons-material/Check';
 
 interface Column {
   name: string;

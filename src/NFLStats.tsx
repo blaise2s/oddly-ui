@@ -150,7 +150,7 @@ export const NFLStats = ({ games }: NFLStatsProps) => {
           <StatPair
             label={splitAndCapitalize(label)}
             value={
-              isTotal
+              isTotal || games?.length === 0
                 ? value
                 : getPercentage({
                     stat: value,

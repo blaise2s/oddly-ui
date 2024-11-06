@@ -3,7 +3,8 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import { Account } from './Account';
 import { Home } from './Home';
 import { NavBar } from './NavBar';
-import { NFL } from './NFL';
+import { NFLContainer } from './NFLContainer';
+import { NFLContextProvider } from './NFLContextProvider';
 import { PrivateRoutes } from './routes';
 
 export const App = () => {
@@ -22,7 +23,14 @@ export const App = () => {
         }
       >
         <Route path={`${PrivateRoutes.Home}`} element={<Home />} />
-        <Route path={`${PrivateRoutes.NFL}`} element={<NFL />} />
+        <Route
+          path={`${PrivateRoutes.NFL}`}
+          element={
+            <NFLContextProvider>
+              <NFLContainer />
+            </NFLContextProvider>
+          }
+        />
         <Route path={`${PrivateRoutes.Account}`} element={<Account />} />
       </Route>
     </Routes>
