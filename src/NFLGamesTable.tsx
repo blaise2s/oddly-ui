@@ -18,34 +18,8 @@ import {
   Typography,
 } from '@mui/material';
 import { format, toDate } from 'date-fns';
-import { NFLTeamLogoMap } from './nflConstants';
+import { GamesTableColumns, NFLTeamLogoMap } from './nflConstants';
 import { NFLGame, OverUnderResult, SpreadResult } from './nflTypes';
-
-interface Column {
-  name: string;
-  sx?: SxProps;
-  align?: 'center' | 'left' | 'right';
-}
-const Columns: Column[] = [
-  { name: 'Season' },
-  { name: 'Date' },
-  { name: 'DoW' },
-  { name: 'Time ET' },
-  { name: 'Favorite', align: 'center' },
-  { name: 'Score Favorite', align: 'center' },
-  { name: 'Score Underdog', align: 'center' },
-  { name: 'Underdog', align: 'center' },
-  { name: 'Location' },
-  { name: 'Spread' },
-  { name: 'Spread Result' },
-  { name: 'OU' },
-  { name: 'OU Result' },
-  { name: 'Overtime' },
-  { name: 'Postseason' },
-  { name: 'Favorite Seed' },
-  { name: 'Underdog Seed' },
-  { name: 'Notes' },
-];
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -89,7 +63,6 @@ interface TeamWithLogoProps {
   name: string;
   logoPosition?: 'beginning' | 'end';
 }
-
 const TeamWithLogo = ({
   currentName,
   name,
@@ -120,17 +93,17 @@ const TeamWithLogo = ({
   );
 };
 
-interface NFLGameTableProps {
+interface NFLGamesTableProps {
   games?: NFLGame[];
 }
 
-export const NFLGameTable = ({ games }: NFLGameTableProps) => {
+export const NFLGamesTable = ({ games }: NFLGamesTableProps) => {
   return (
     <TableContainer sx={{ maxHeight: '100%' }}>
       <Table aria-label='NFL Games Table' stickyHeader>
         <TableHead>
           <TableRow>
-            {Columns.map(({ name, sx, align }, index) => {
+            {GamesTableColumns.map(({ name, sx, align }, index) => {
               return (
                 <StyledTableCell key={index} sx={sx} align={align}>
                   {name}
@@ -142,7 +115,10 @@ export const NFLGameTable = ({ games }: NFLGameTableProps) => {
         <TableBody>
           {!games || games.length <= 0 ? (
             <TableRow>
-              <StyledTableCell colSpan={Columns.length} align='center'>
+              <StyledTableCell
+                colSpan={GamesTableColumns.length}
+                align='center'
+              >
                 <Typography p='2rem'>
                   No data to display, refine search criteria.
                 </Typography>

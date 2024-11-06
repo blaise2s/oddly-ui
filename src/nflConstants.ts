@@ -1,11 +1,34 @@
+import { Column } from './globalTypes';
 import {
   NFLAdditionalFilter,
   NFLAdditionalFilterNames,
   NFLSeason,
   NFLTab,
+  NFLTabIds,
   NFLTeam,
   NFL_DIVISIONS,
 } from './nflTypes';
+
+export const GamesTableColumns: Column[] = [
+  { name: 'Season' },
+  { name: 'Date' },
+  { name: 'DoW' },
+  { name: 'Time ET' },
+  { name: 'Favorite', align: 'center' },
+  { name: 'Score Favorite', align: 'center' },
+  { name: 'Score Underdog', align: 'center' },
+  { name: 'Underdog', align: 'center' },
+  { name: 'Location' },
+  { name: 'Spread' },
+  { name: 'Spread Result' },
+  { name: 'OU' },
+  { name: 'OU Result' },
+  { name: 'Overtime' },
+  { name: 'Postseason' },
+  { name: 'Favorite Seed' },
+  { name: 'Underdog Seed' },
+  { name: 'Notes' },
+];
 
 export const NFC_NORTH_TEAMS: [NFLTeam, NFLTeam, NFLTeam, NFLTeam] = [
   {
@@ -217,6 +240,8 @@ export const AFC_WEST_TEAMS: [NFLTeam, NFLTeam, NFLTeam, NFLTeam] = [
   },
 ];
 
+// ? Pull all the teams from the DB and build selectable list dynamically? Maybe not
+// ? as I'd still need to map each one to an image path... and the teams won't change ofter
 export const NFL_TEAMS: NFLTeam[] = [
   ...NFC_NORTH_TEAMS,
   ...NFC_EAST_TEAMS,
@@ -228,6 +253,8 @@ export const NFL_TEAMS: NFLTeam[] = [
   ...AFC_WEST_TEAMS,
 ];
 
+// ? Pull all the seasons from the DB and build selectable list dynamically?
+// ? This would be more relevant than teams as every year there would be a new season
 export const NFL_SEASONS: NFLSeason[] = [
   { selected: true, year: 2024 },
   { selected: false, year: 2023 },
@@ -329,11 +356,6 @@ export const NFL_ADDITIONAL_FILTERS: NFLAdditionalFilter[] = [
     division: NFL_DIVISIONS.AFC_WEST,
   },
 ];
-
-export const NFLTabIds = {
-  Games: 'games',
-  Stats: 'stats',
-} as const;
 
 export const NFLTabs: NFLTab[] = [
   {

@@ -1,5 +1,4 @@
 import { AdditionalFilter, Selectable } from './globalTypes';
-import { NFLTabIds } from './nflConstants';
 
 type Location = 'FAVORITE' | 'UNDERDOG' | 'NEUTRAL';
 export type SpreadResult = 'WIN' | 'LOSS' | 'PUSH';
@@ -29,6 +28,20 @@ export interface NFLGame {
   over_under_res: OverUnderResult;
   overtime: boolean;
   notes?: string;
+}
+
+export interface SelectionStats {
+  total_games: number;
+  over: number;
+  under: number;
+  over_under_pushed: number;
+  favorite_won: number;
+  underdog_won: number;
+  tie_games: number;
+  spread_won: number;
+  spread_lost: number;
+  spread_pushed: number;
+  overtime_games: number;
 }
 
 export const NFL_DIVISIONS = {
@@ -72,9 +85,30 @@ export interface NFLAdditionalFilter extends AdditionalFilter {
   division?: NFL_DIVISION;
 }
 
+export const NFLTabIds = {
+  Games: 'games',
+  Stats: 'stats',
+} as const;
 export type NFLTabId = (typeof NFLTabIds)[keyof typeof NFLTabIds];
 
 export interface NFLTab {
   tabId: NFLTabId;
   label: string;
+}
+
+export interface GetPercentagePayload {
+  stat: number;
+  total: number;
+  fractionalDigits?: number;
+}
+
+export interface DivisionSelections {
+  nfcNorthSelected: boolean;
+  nfcEastSelected: boolean;
+  nfcSouthSelected: boolean;
+  nfcWestSelected: boolean;
+  afcNorthSelected: boolean;
+  afcEastSelected: boolean;
+  afcSouthSelected: boolean;
+  afcWestSelected: boolean;
 }

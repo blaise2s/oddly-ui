@@ -1,17 +1,28 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 import { NFLTabIds, NFLTabs } from './nflConstants';
-import { NFLGameTable } from './NFLGameTable';
+import { useNFLContext } from './NFLContext';
+import { NFLGamesTable } from './NFLGamesTable';
+import { useFetchNflGames } from './nflServices';
 import { NFLStats } from './NFLStats';
-import { NFLGame, NFLTabId } from './nflTypes';
+import { NFLTabId } from './nflTypes';
+import { getSelectedTeamNames } from './nflUtils';
 import { TabPanel } from './TabPanel';
 
-interface NFLContentProps {
-  games?: NFLGame[];
-  loadingGames?: boolean;
-}
+export const NFLContent = () => {
+  const { seasons, teams, headToHeadSelected } = useNFLContext();
 
-export const NFLContent = ({ games, loadingGames }: NFLContentProps) => {
+  const { data: games, isFetching: loadingGames } = useFetchNflGames({
+    seasons: seasons.reduce<number[]>((accumulator, season) => {
+      if (season.selected) {
+        accumulator.push(season.year);
+      }
+      return accumulator;
+    }, []),
+    teams: getSelectedTeamNames(teams),
+    headToHead: headToHeadSelected,
+  });
+
   const [activeTabId, setActiveTabId] = useState<NFLTabId>(NFLTabIds.Games);
 
   return (
@@ -34,7 +45,7 @@ export const NFLContent = ({ games, loadingGames }: NFLContentProps) => {
           sx={{ height: '100%' }}
           loading={loadingGames}
         >
-          <NFLGameTable games={games} />
+          <NFLGamesTable games={games} />
         </TabPanel>
         <TabPanel
           activeTabId={activeTabId}
