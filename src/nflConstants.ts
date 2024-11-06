@@ -253,56 +253,20 @@ export const NFL_TEAMS: NFLTeam[] = [
   ...AFC_WEST_TEAMS,
 ];
 
+const START_SEASON = 1979;
+const END_SEASON = 2024;
+
 // ? Pull all the seasons from the DB and build selectable list dynamically?
-// ? This would be more relevant than teams as every year there would be a new season
-export const NFL_SEASONS: NFLSeason[] = [
-  { selected: true, year: 2024 },
-  { selected: false, year: 2023 },
-  { selected: false, year: 2022 },
-  { selected: false, year: 2021 },
-  { selected: false, year: 2020 },
-  { selected: false, year: 2019 },
-  { selected: false, year: 2018 },
-  { selected: false, year: 2017 },
-  { selected: false, year: 2016 },
-  { selected: false, year: 2015 },
-  { selected: false, year: 2014 },
-  { selected: false, year: 2013 },
-  { selected: false, year: 2012 },
-  { selected: false, year: 2011 },
-  { selected: false, year: 2010 },
-  { selected: false, year: 2009 },
-  { selected: false, year: 2008 },
-  { selected: false, year: 2007 },
-  { selected: false, year: 2006 },
-  { selected: false, year: 2005 },
-  { selected: false, year: 2004 },
-  { selected: false, year: 2003 },
-  { selected: false, year: 2002 },
-  { selected: false, year: 2001 },
-  { selected: false, year: 2000 },
-  { selected: false, year: 1999 },
-  { selected: false, year: 1998 },
-  { selected: false, year: 1997 },
-  { selected: false, year: 1996 },
-  { selected: false, year: 1995 },
-  { selected: false, year: 1994 },
-  { selected: false, year: 1993 },
-  { selected: false, year: 1992 },
-  { selected: false, year: 1991 },
-  { selected: false, year: 1990 },
-  { selected: false, year: 1989 },
-  { selected: false, year: 1988 },
-  { selected: false, year: 1987 },
-  { selected: false, year: 1986 },
-  { selected: false, year: 1985 },
-  { selected: false, year: 1984 },
-  { selected: false, year: 1983 },
-  { selected: false, year: 1982 },
-  { selected: false, year: 1981 },
-  { selected: false, year: 1980 },
-  { selected: false, year: 1979 },
-];
+// ? This would be more relevant than teams as every year there would be a new season.
+// ? Then again thins is also an elegant solution... and I could do it dynamically with
+// ? the current year for END_SEASON when DB is updating automatically?
+export const NFL_SEASONS: NFLSeason[] = Array.from(
+  { length: END_SEASON - START_SEASON + 1 },
+  (_, index) => {
+    const year = END_SEASON - index;
+    return { selected: year === END_SEASON, year };
+  },
+);
 
 export const NFLTeamLogoMap = new Map<string, string>(
   NFL_TEAMS.map<[string, string]>(({ name, image }) => {

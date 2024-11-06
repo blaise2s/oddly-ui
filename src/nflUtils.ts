@@ -1,6 +1,7 @@
 import {
   DivisionSelections,
   GetPercentagePayload,
+  NFL_DIVISION,
   NFL_DIVISIONS,
   NFLAdditionalFilter,
   NFLGame,
@@ -163,30 +164,6 @@ export const getSelectedDivisionsFromTeams = (
 export const getSelectedDivisionsFromFilters = (
   additionalFilters: NFLAdditionalFilter[],
 ): DivisionSelections => {
-  // const nfcNorthFilterIndex = additionalFilters.findIndex(
-  //   (filter) => filter.name === NFLAdditionalFilterNames.NFC_North,
-  // );
-  // const nfcNorthSelected =
-  //   nfcNorthFilterIndex > -1 && additionalFilters[nfcNorthFilterIndex].selected;
-
-  // const nfcEastFilterIndex = additionalFilters.findIndex(
-  //   (filter) => filter.name === NFLAdditionalFilterNames.NFC_East,
-  // );
-  // const nfcEastSelected =
-  //   nfcEastFilterIndex > -1 && additionalFilters[nfcEastFilterIndex].selected;
-
-  // const nfcSouthFilterIndex = additionalFilters.findIndex(
-  //   (filter) => filter.name === NFLAdditionalFilterNames.NFC_South,
-  // );
-  // const nfcSouthSelected =
-  //   nfcSouthFilterIndex > -1 && additionalFilters[nfcSouthFilterIndex].selected;
-
-  // const nfcWestFilterIndex = additionalFilters.findIndex(
-  //   (filter) => filter.name === NFLAdditionalFilterNames.NFC_West,
-  // );
-  // const nfcWestSelected =
-  //   nfcWestFilterIndex > -1 && additionalFilters[nfcWestFilterIndex].selected;
-
   let nfcNorthSelected = false;
   let nfcEastSelected = false;
   let nfcSouthSelected = false;
@@ -252,4 +229,139 @@ export const findChangingDivision = (
     }
   }
   return null;
+};
+
+const getSelectionKeyForDivision = (
+  division: NFL_DIVISION,
+): keyof DivisionSelections => {
+  switch (division) {
+    case NFL_DIVISIONS.NFC_NORTH:
+      return 'nfcNorthSelected';
+    case NFL_DIVISIONS.NFC_EAST:
+      return 'nfcEastSelected';
+    case NFL_DIVISIONS.NFC_SOUTH:
+      return 'nfcSouthSelected';
+    case NFL_DIVISIONS.NFC_WEST:
+      return 'nfcWestSelected';
+    case NFL_DIVISIONS.AFC_NORTH:
+      return 'afcNorthSelected';
+    case NFL_DIVISIONS.AFC_EAST:
+      return 'afcEastSelected';
+    case NFL_DIVISIONS.AFC_SOUTH:
+      return 'afcSouthSelected';
+    case NFL_DIVISIONS.AFC_WEST:
+      return 'afcWestSelected';
+  }
+};
+
+const teamIsInDivisionAndChanging = (
+  team: NFLTeam,
+  division: NFL_DIVISION,
+  changingDivision: keyof DivisionSelections | null,
+) => {
+  return (
+    team.division === division &&
+    changingDivision === getSelectionKeyForDivision(division)
+  );
+};
+
+const toggleTeam = (
+  activating: boolean,
+  team: NFLTeam,
+  numSelected: number,
+) => {
+  if (activating) {
+    team.selected = true;
+    return 0;
+  }
+  if (numSelected > 1) {
+    team.selected = false;
+    return -1;
+  }
+  return 0;
+};
+
+interface handleDivisionChangePayload {
+  teams: NFLTeam[];
+  selectedDivisions: DivisionSelections;
+  changingDivision: keyof DivisionSelections;
+}
+export const handleDivisionChange = ({
+  teams,
+  selectedDivisions,
+  changingDivision,
+}: handleDivisionChangePayload) => {
+  let numSelected = teams.filter((team) => {
+    return team.selected;
+  }).length;
+
+  const activating = selectedDivisions[changingDivision];
+
+  teams.forEach((team) => {
+    if (
+      teamIsInDivisionAndChanging(
+        team,
+        NFL_DIVISIONS.NFC_NORTH,
+        changingDivision,
+      )
+    ) {
+      numSelected += toggleTeam(activating, team, numSelected);
+    } else if (
+      teamIsInDivisionAndChanging(
+        team,
+        NFL_DIVISIONS.NFC_EAST,
+        changingDivision,
+      )
+    ) {
+      numSelected += toggleTeam(activating, team, numSelected);
+    } else if (
+      teamIsInDivisionAndChanging(
+        team,
+        NFL_DIVISIONS.NFC_SOUTH,
+        changingDivision,
+      )
+    ) {
+      numSelected += toggleTeam(activating, team, numSelected);
+    } else if (
+      teamIsInDivisionAndChanging(
+        team,
+        NFL_DIVISIONS.NFC_WEST,
+        changingDivision,
+      )
+    ) {
+      numSelected += toggleTeam(activating, team, numSelected);
+    } else if (
+      teamIsInDivisionAndChanging(
+        team,
+        NFL_DIVISIONS.AFC_NORTH,
+        changingDivision,
+      )
+    ) {
+      numSelected += toggleTeam(activating, team, numSelected);
+    } else if (
+      teamIsInDivisionAndChanging(
+        team,
+        NFL_DIVISIONS.AFC_EAST,
+        changingDivision,
+      )
+    ) {
+      numSelected += toggleTeam(activating, team, numSelected);
+    } else if (
+      teamIsInDivisionAndChanging(
+        team,
+        NFL_DIVISIONS.AFC_SOUTH,
+        changingDivision,
+      )
+    ) {
+      numSelected += toggleTeam(activating, team, numSelected);
+    } else if (
+      teamIsInDivisionAndChanging(
+        team,
+        NFL_DIVISIONS.AFC_WEST,
+        changingDivision,
+      )
+    ) {
+      numSelected += toggleTeam(activating, team, numSelected);
+    }
+  });
 };

@@ -4,7 +4,6 @@ import { Account } from './Account';
 import { Home } from './Home';
 import { NavBar } from './NavBar';
 import { NFLContainer } from './NFLContainer';
-import { NFLContextProvider } from './NFLContextProvider';
 import { PrivateRoutes } from './routes';
 
 export const App = () => {
@@ -23,14 +22,7 @@ export const App = () => {
         }
       >
         <Route path={`${PrivateRoutes.Home}`} element={<Home />} />
-        <Route
-          path={`${PrivateRoutes.NFL}`}
-          element={
-            <NFLContextProvider>
-              <NFLContainer />
-            </NFLContextProvider>
-          }
-        />
+        <Route path={`${PrivateRoutes.NFL}`} element={<NFLContainer />} />
         <Route path={`${PrivateRoutes.Account}`} element={<Account />} />
       </Route>
     </Routes>

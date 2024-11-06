@@ -17,6 +17,7 @@ import {
   getSelectedDivisionsFromFilters,
   getSelectedDivisionsFromTeams,
   getSelectedTeamNames,
+  handleDivisionChange,
 } from './nflUtils';
 
 export const NFLSidebar = () => {
@@ -133,34 +134,10 @@ export const NFLSidebar = () => {
           );
 
           if (changingDivision) {
-            let numSelected = newTeams.filter((team) => {
-              return team.selected;
-            }).length;
-
-            const activating = selectedDivisions[changingDivision];
-
-            newTeams.forEach((team) => {
-              if (
-                team.division === NFL_DIVISIONS.NFC_NORTH &&
-                changingDivision === 'nfcNorthSelected'
-              ) {
-                if (activating) {
-                  team.selected = true;
-                } else if (numSelected > 1) {
-                  team.selected = false;
-                  numSelected--;
-                }
-              } else if (
-                team.division === NFL_DIVISIONS.NFC_EAST &&
-                changingDivision === 'nfcEastSelected'
-              ) {
-                if (activating) {
-                  team.selected = true;
-                } else if (numSelected > 1) {
-                  team.selected = false;
-                  numSelected--;
-                }
-              }
+            handleDivisionChange({
+              teams: newTeams,
+              selectedDivisions,
+              changingDivision,
             });
           }
 
@@ -183,7 +160,7 @@ export const NFLSidebar = () => {
           icon: <NumbersIcon />,
         }}
         selectionMin={1}
-        selectionMax={20}
+        selectionMax={10}
       />
       <Divider />
       <FilterList

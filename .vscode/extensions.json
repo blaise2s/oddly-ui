@@ -9,6 +9,7 @@
     "editorconfig.editorconfig",
     "eamodio.gitlens",
     "oderwat.indent-rainbow",
-    "pkief.material-icon-theme"
+    "pkief.material-icon-theme",
+    "tombonnike.vscode-status-bar-format-toggle"
   ]
 }
