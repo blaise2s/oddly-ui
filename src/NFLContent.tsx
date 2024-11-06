@@ -1,11 +1,11 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
-import { NFLTabIds, NFLTabs } from './nflConstants';
+import { NFLTabs } from './nflConstants';
 import { useNFLContext } from './NFLContext';
 import { NFLGamesTable } from './NFLGamesTable';
 import { useFetchNflGames } from './nflServices';
 import { NFLStats } from './NFLStats';
-import { NFLTabId } from './nflTypes';
+import { NFLTabId, NFLTabIds } from './nflTypes';
 import { getSelectedTeamNames } from './nflUtils';
 import { TabPanel } from './TabPanel';
 
