@@ -10,7 +10,7 @@ import { getSelectedTeamNames } from './nflUtils';
 import { TabPanel } from './TabPanel';
 
 export const NFLContent = () => {
-  const { seasons, teams, headToHeadSelected } = useNFLContext();
+  const { seasons, teams, headToHeadSelected, gameOrderMap } = useNFLContext();
 
   const { data: games, isFetching: loadingGames } = useFetchNflGames({
     seasons: seasons.reduce<number[]>((accumulator, season) => {
@@ -20,6 +20,13 @@ export const NFLContent = () => {
       return accumulator;
     }, []),
     teams: getSelectedTeamNames(teams),
+    orders: Array.from(gameOrderMap.entries())
+      .sort(([, { priority: p1 }], [, { priority: p2 }]) => {
+        return p1 - p2;
+      })
+      .map(([by, { sort }]) => {
+        return { by, sort };
+      }),
     headToHead: headToHeadSelected,
   });
 

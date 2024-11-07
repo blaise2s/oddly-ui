@@ -1,5 +1,5 @@
 import { createContext, Dispatch, SetStateAction, useContext } from 'react';
-import { NFLSeason, NFLTeam } from './nflTypes';
+import { GameOrderMap, NFLSeason, NFLTeam } from './nflTypes';
 
 export interface NFLContextType {
   seasons: NFLSeason[];
@@ -8,6 +8,8 @@ export interface NFLContextType {
   setTeams: Dispatch<SetStateAction<NFLTeam[]>>;
   headToHeadSelected: boolean;
   setHeadToHeadSelected: Dispatch<SetStateAction<boolean>>;
+  gameOrderMap: GameOrderMap;
+  setGameOrderMap: Dispatch<SetStateAction<GameOrderMap>>;
 }
 
 export const NFLContext = createContext<NFLContextType | undefined>(undefined);

@@ -1,33 +1,72 @@
-import { Column } from './globalTypes';
+import { Column, Sorts } from './globalTypes';
 import {
+  NFL_DIVISIONS,
   NFLAdditionalFilter,
   NFLAdditionalFilterNames,
+  NFLGameColumnId,
+  NFLGameColumnIds,
   NFLSeason,
   NFLTab,
   NFLTabIds,
   NFLTeam,
-  NFL_DIVISIONS,
 } from './nflTypes';
 
-export const GamesTableColumns: Column[] = [
-  { name: 'Season' },
-  { name: 'Date' },
-  { name: 'DoW' },
-  { name: 'Time ET' },
-  { name: 'Favorite', align: 'center' },
-  { name: 'Score Favorite', align: 'center' },
-  { name: 'Score Underdog', align: 'center' },
-  { name: 'Underdog', align: 'center' },
-  { name: 'Location' },
-  { name: 'Spread' },
-  { name: 'Spread Result' },
-  { name: 'OU' },
-  { name: 'OU Result' },
-  { name: 'Overtime' },
-  { name: 'Postseason' },
-  { name: 'Favorite Seed' },
-  { name: 'Underdog Seed' },
-  { name: 'Notes' },
+export const GamesTableColumns: (Column & { id: NFLGameColumnId })[] = [
+  {
+    id: NFLGameColumnIds.Season,
+    name: 'Season',
+    sortable: true,
+    initialSort: Sorts.Desc,
+  },
+  { id: NFLGameColumnIds.Date, name: 'Date', sortable: true },
+  { id: NFLGameColumnIds.DayOfWeek, name: 'DoW', sortable: true },
+  { id: NFLGameColumnIds.TimeEastern, name: 'Time ET' },
+  {
+    id: NFLGameColumnIds.Favorite,
+    name: 'Favorite',
+    align: 'center',
+    sortable: true,
+  },
+  {
+    id: NFLGameColumnIds.ScoreFavorite,
+    name: 'Score Favorite',
+    align: 'center',
+    sortable: true,
+  },
+  {
+    id: NFLGameColumnIds.ScoreUnderdog,
+    name: 'Score Underdog',
+    align: 'center',
+    sortable: true,
+  },
+  {
+    id: NFLGameColumnIds.Underdog,
+    name: 'Underdog',
+    align: 'center',
+    sortable: true,
+  },
+  { id: NFLGameColumnIds.Location, name: 'Location', sortable: true },
+  { id: NFLGameColumnIds.Spread, name: 'Spread', sortable: true },
+  {
+    id: NFLGameColumnIds.SpreadResult,
+    name: 'Spread Result',
+    sortable: true,
+  },
+  { id: NFLGameColumnIds.OverUnder, name: 'OU' },
+  { id: NFLGameColumnIds.OverUnderResult, name: 'OU Result' },
+  { id: NFLGameColumnIds.Overtime, name: 'Overtime', sortable: true },
+  { id: NFLGameColumnIds.Postseason, name: 'Postseason', sortable: true },
+  {
+    id: NFLGameColumnIds.FavoriteSeed,
+    name: 'Favorite Seed',
+    sortable: true,
+  },
+  {
+    id: NFLGameColumnIds.UnderdogSeed,
+    name: 'Underdog Seed',
+    sortable: true,
+  },
+  { id: NFLGameColumnIds.Notes, name: 'Notes' },
 ];
 
 export const NFC_NORTH_TEAMS: [NFLTeam, NFLTeam, NFLTeam, NFLTeam] = [

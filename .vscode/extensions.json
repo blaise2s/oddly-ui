@@ -10,6 +10,8 @@
     "eamodio.gitlens",
     "oderwat.indent-rainbow",
     "pkief.material-icon-theme",
-    "tombonnike.vscode-status-bar-format-toggle"
+    "tombonnike.vscode-status-bar-format-toggle",
+    "github.copilot",
+    "github.copilot-chat"
   ]
 }

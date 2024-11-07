@@ -15,10 +15,14 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TableSortLabel,
   Typography,
 } from '@mui/material';
+import { visuallyHidden } from '@mui/utils';
 import { format, toDate } from 'date-fns';
+import { Sorts } from './globalTypes';
 import { GamesTableColumns, NFLTeamLogoMap } from './nflConstants';
+import { useNFLContext } from './NFLContext';
 import { NFLGame, OverUnderResult, SpreadResult } from './nflTypes';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -98,18 +102,49 @@ interface NFLGamesTableProps {
 }
 
 export const NFLGamesTable = ({ games }: NFLGamesTableProps) => {
+  const { gameOrderMap } = useNFLContext();
+
   return (
     <TableContainer sx={{ maxHeight: '100%' }}>
       <Table aria-label='NFL Games Table' stickyHeader>
         <TableHead>
           <TableRow>
-            {GamesTableColumns.map(({ name, sx, align }, index) => {
-              return (
-                <StyledTableCell key={index} sx={sx} align={align}>
-                  {name}
-                </StyledTableCell>
-              );
-            })}
+            {GamesTableColumns.map(
+              ({ id, name, sx, align, sortable, initialSort }) => {
+                const active = gameOrderMap.has(id);
+                const sortProps = gameOrderMap.get(id);
+                const sortDirection = sortProps && sortProps.sort;
+
+                return (
+                  <StyledTableCell
+                    key={id}
+                    sx={sx}
+                    align={align}
+                    sortDirection={sortDirection}
+                  >
+                    {sortable ? (
+                      <TableSortLabel
+                        active={active}
+                        direction={
+                          active ? sortDirection : initialSort || Sorts.Asc
+                        }
+                      >
+                        {name}
+                        {active && (
+                          <Box component='span' sx={visuallyHidden}>
+                            {sortDirection === 'desc'
+                              ? 'sorted descending'
+                              : 'sorted ascending'}
+                          </Box>
+                        )}
+                      </TableSortLabel>
+                    ) : (
+                      <>{name}</>
+                    )}
+                  </StyledTableCell>
+                );
+              },
+            )}
           </TableRow>
         </TableHead>
         <TableBody>

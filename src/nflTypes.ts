@@ -1,4 +1,4 @@
-import { AdditionalFilter, Selectable } from './globalTypes';
+import { AdditionalFilter, Selectable, Sort } from './globalTypes';
 
 type Location = 'FAVORITE' | 'UNDERDOG' | 'NEUTRAL';
 export type SpreadResult = 'WIN' | 'LOSS' | 'PUSH';
@@ -112,3 +112,31 @@ export interface DivisionSelections {
   afcSouthSelected: boolean;
   afcWestSelected: boolean;
 }
+
+export const NFLGameColumnIds = {
+  Season: 'season',
+  Date: 'date',
+  DayOfWeek: 'dayOfWeek',
+  Favorite: 'favorite',
+  ScoreFavorite: 'scoreFavorite',
+  ScoreUnderdog: 'scoreUnderdog',
+  Underdog: 'underdog',
+  Location: 'location',
+  Spread: 'spread',
+  SpreadResult: 'spreadResult',
+  Overtime: 'overtime',
+  Postseason: 'postseason',
+  FavoriteSeed: 'favoriteSeed',
+  UnderdogSeed: 'underdogSeed',
+  TimeEastern: 'timeEastern',
+  OverUnder: 'overUnder',
+  OverUnderResult: 'overUnderResult',
+  Notes: 'notes',
+} as const;
+export type NFLGameColumnId =
+  (typeof NFLGameColumnIds)[keyof typeof NFLGameColumnIds];
+
+export type GameOrderMap = Map<
+  NFLGameColumnId,
+  { sort: Sort; priority: number }
+>;
