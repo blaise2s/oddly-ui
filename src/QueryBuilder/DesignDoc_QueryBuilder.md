@@ -58,7 +58,7 @@ The Query Builder is a React component developed using TypeScript and Material U
     type: ColumnType;
     operators: Operator[];
     values: T[];
-    displayTextProp?: keyof T;
+    valueDisplayTextProp?: keyof T;
   }
 
   export interface QueryPart<T> {
@@ -96,7 +96,6 @@ The Query Builder is a React component developed using TypeScript and Material U
 
     const START_YEAR = 2000;
     const END_YEAR = new Date().getFullYear();
-
     const YEARS = Array.from({ length: END_YEAR - START_YEAR + 1 }, (_, index) => START_YEAR + index);
 
     export const COUNTRIES = ['USA', 'Canada', 'Mexico', 'UK'];
@@ -111,38 +110,45 @@ The Query Builder is a React component developed using TypeScript and Material U
         id: 'firstName',
         displayText: 'First Name',
         type: ColumnTypes.Text,
-        operators: TextOperators,
-        values: USERS,
-        displayTextProp: 'firstName',
+        operators: DefaultTextOperators,
+        valueDisplayTextProp: 'firstName',
+        valueIdProp: 'id',
       },
       {
         id: 'lastName',
         displayText: 'Last Name',
         type: ColumnTypes.Text,
-        operators: TextOperators,
-        values: USERS,
-        displayTextProp: 'lastName',
+        operators: DefaultTextOperators,
+        valueDisplayTextProp: 'lastName',
+        valueIdProp: 'id',
       },
       {
         id: 'age',
         displayText: 'Age',
-        type: ColumnTypes.Multiselect,
-        operators: NumericOperators,
-        values: AGES,
+        type: ColumnTypes.Numeric,
+        operators: DefaultNumericOperators,
       },
       {
         id: 'country',
         displayText: 'Country',
         type: ColumnTypes.Multiselect,
-        operators: TextOperators,
+        operators: [Equals, NotEqual],
         values: COUNTRIES,
       },
       {
         id: 'year',
         displayText: 'Year',
         type: ColumnTypes.Numeric,
-        operators: NumericOperators,
-        values: YEARS,
+        operators: [Equals, NotEqual],
+      },
+      {
+        id: 'username',
+        displayText: 'Username',
+        type: ColumnTypes.Multiselect,
+        operators: [Equals, NotEqual],
+        valueDisplayTextProp: 'id',
+        valueIdProp: 'id',
+        values: USERS,
       },
     ];
     ```

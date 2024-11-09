@@ -7,7 +7,7 @@ import { App } from './App';
 import { Login } from './Login';
 import { LogoutContainer } from './LogoutContainer';
 import { PublicRoutes } from './routes';
-import { QueryBuilderContainer } from './QueryBuilder/components/QueryBuilderContainer';
+import { QueryBuilderContainer } from './QueryBuilder/QueryBuilderContainer';
 
 export const Router = createBrowserRouter(
   createRoutesFromElements(
