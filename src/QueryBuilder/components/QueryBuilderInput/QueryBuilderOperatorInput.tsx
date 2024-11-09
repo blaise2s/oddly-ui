@@ -38,7 +38,7 @@ export const QueryBuilderOperatorInput = ({
           inputRef={operatorRef}
           color='info'
           placeholder='Select Operator'
-          // TODO: InputProps is deprecated, but slotProps did not work as expected, submit but to MUI
+          // TODO: InputProps is deprecated, but slotProps did not work as expected, submit bug to MUI
           InputProps={{
             ...params.InputProps,
             startAdornment: `${currentlyBuildingQuery?.column?.displayText || ''}`,

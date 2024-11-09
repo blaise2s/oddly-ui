@@ -2,15 +2,15 @@
 import { KeyboardEvent, ReactNode, useRef, useState } from 'react';
 import { v7 as uuidv7 } from 'uuid';
 import {
-  QueryBuilderContext,
-  QueryBuilderContextType,
-} from './QueryBuilderContext';
-import {
   InputFoci,
   InputFocus,
   QueryPart,
 } from '../queryBuilderTypesAndConstants';
 import { logQueryParts } from '../queryBuilderUtils';
+import {
+  QueryBuilderContext,
+  QueryBuilderContextType,
+} from './QueryBuilderContext';
 
 interface QueryBuilderContextProviderProps {
   children: ReactNode;
@@ -96,10 +96,6 @@ export const QueryBuilderContextProvider = ({
         if (index < queryParts.length - 1) {
           chipRefs.current[index + 1]?.focus();
         }
-        break;
-
-      case 'Delete':
-      case 'Backspace':
         break;
 
       default:
