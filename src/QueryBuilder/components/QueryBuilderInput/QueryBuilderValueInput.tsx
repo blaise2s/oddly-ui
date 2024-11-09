@@ -1,8 +1,21 @@
 import { Autocomplete, Box, TextField } from '@mui/material';
-import { ColumnTypes } from '../../queryBuilderTypesAndConstants';
+import { ColumnTypes, QueryPart } from '../../queryBuilderTypesAndConstants';
 import { getTextFieldType } from '../../queryBuilderUtils';
 import { useQueryBuilderContext } from '../QueryBuilderContext';
 import { BaseQueryBuilderInputFieldProps } from './queryBuilderInputTypes';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getValue = (queryPart?: Partial<QueryPart<any>>) => {
+  if (queryPart?.column && queryPart?.value) {
+    const valueIdProp = queryPart.column?.valueIdProp;
+    const value = queryPart.value;
+    if (valueIdProp) {
+      return value[valueIdProp];
+    }
+    return value;
+  }
+  return undefined;
+};
 
 export const QueryBuilderValueInput = ({
   textFieldOverrides,
@@ -14,37 +27,25 @@ export const QueryBuilderValueInput = ({
     setAddNewQuery,
   } = useQueryBuilderContext();
 
+  const columnType = currentlyBuildingQuery?.column?.type;
+  const valueDisplayTextProp =
+    currentlyBuildingQuery.column?.valueDisplayTextProp;
+  const valueIdProp = currentlyBuildingQuery.column?.valueIdProp;
+
   return (
     <Autocomplete
-      multiple={
-        currentlyBuildingQuery?.column?.type === ColumnTypes.Multiselect
-      }
-      freeSolo={
-        currentlyBuildingQuery?.column?.type !== ColumnTypes.Multiselect
-      }
+      multiple={columnType === ColumnTypes.Multiselect}
+      freeSolo={columnType !== ColumnTypes.Multiselect}
       options={currentlyBuildingQuery?.column?.values || []}
       getOptionLabel={(value) => {
         // Needed to handle freeSolo
         if (typeof value === 'string' || value instanceof String) {
           return value;
         }
-        const valueDisplayTextProp =
-          currentlyBuildingQuery.column?.valueDisplayTextProp;
         return valueDisplayTextProp ? value[valueDisplayTextProp] : value;
       }}
-      getOptionKey={(value) => {
-        const valueIdProp = currentlyBuildingQuery.column?.valueIdProp;
-        return valueIdProp ? value[valueIdProp] : value;
-      }}
-      value={
-        currentlyBuildingQuery?.value
-          ? currentlyBuildingQuery.column?.valueIdProp
-            ? currentlyBuildingQuery.value[
-                currentlyBuildingQuery.column.valueIdProp
-              ]
-            : currentlyBuildingQuery.value
-          : undefined
-      }
+      getOptionKey={(value) => (valueIdProp ? value[valueIdProp] : value)}
+      value={getValue(currentlyBuildingQuery)}
       onChange={(_event, value) => {
         setCurrentlyBuildingQuery((previous) => ({
           ...previous,
@@ -55,10 +56,10 @@ export const QueryBuilderValueInput = ({
         <TextField
           {...params}
           inputRef={valueRef}
-          type={getTextFieldType(currentlyBuildingQuery?.column?.type)}
+          type={getTextFieldType(columnType)}
           color='info'
           placeholder={
-            currentlyBuildingQuery?.column?.type === ColumnTypes.Multiselect
+            columnType === ColumnTypes.Multiselect
               ? 'Select Values'
               : 'Enter Value'
           }
@@ -77,8 +78,7 @@ export const QueryBuilderValueInput = ({
           }}
           onKeyDown={(event) => {
             if (
-              currentlyBuildingQuery?.column?.type !==
-                ColumnTypes.Multiselect &&
+              columnType !== ColumnTypes.Multiselect &&
               event.key === 'Enter'
             ) {
               setAddNewQuery(true);
