@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box } from '@mui/material';
-import { QueryPart } from './queryBuilderTypesAndConstants';
-import { getDisplayValue } from './queryBuilderUtils';
+import { QueryPart } from '../queryBuilderTypesAndConstants';
+import { getDisplayValue } from '../queryBuilderUtils';
 
 interface QueryPartChipDisplayProps {
   queryPart: QueryPart<any>;

@@ -5,7 +5,7 @@ import {
   ColumnType,
   ColumnTypes,
   QueryPart,
-} from './queryBuilderTypesAndConstants';
+} from '../queryBuilderTypesAndConstants';
 
 const getChipColor = (columnType: ColumnType) => {
   switch (columnType) {

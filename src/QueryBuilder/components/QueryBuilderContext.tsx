@@ -7,7 +7,7 @@ import {
   SetStateAction,
   useContext,
 } from 'react';
-import { InputFocus, QueryPart } from './queryBuilderTypesAndConstants';
+import { InputFocus, QueryPart } from '../queryBuilderTypesAndConstants';
 
 export interface QueryBuilderContextType {
   queryParts: QueryPart<any>[];

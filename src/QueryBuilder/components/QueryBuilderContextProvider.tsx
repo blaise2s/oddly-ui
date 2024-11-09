@@ -9,8 +9,8 @@ import {
   InputFoci,
   InputFocus,
   QueryPart,
-} from './queryBuilderTypesAndConstants';
-import { logQueryParts } from './queryBuilderUtils';
+} from '../queryBuilderTypesAndConstants';
+import { logQueryParts } from '../queryBuilderUtils';
 
 interface QueryBuilderContextProviderProps {
   children: ReactNode;

@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { QueryBuilder } from './QueryBuilder';
 import { QueryBuilderContextProvider } from './QueryBuilderContextProvider';
-import { COLUMNS } from './queryBuilderTypesAndConstants';
+import { COLUMNS } from '../queryBuilderTypesAndConstants';
 import { QueryViewer } from './QueryViewer';
 
 export const QueryBuilderContainer = () => {

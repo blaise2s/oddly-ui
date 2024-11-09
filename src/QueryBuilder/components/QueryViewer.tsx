@@ -1,6 +1,6 @@
 import { Box, SxProps, Typography } from '@mui/material';
 import { useQueryBuilderContext } from './QueryBuilderContext';
-import { getDisplayValue } from './queryBuilderUtils';
+import { getDisplayValue } from '../queryBuilderUtils';
 
 interface QueryViewerProps {
   sx?: SxProps;

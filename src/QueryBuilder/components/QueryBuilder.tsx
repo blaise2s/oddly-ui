@@ -2,8 +2,8 @@
 import { Box, SxProps } from '@mui/material';
 import { useEffect } from 'react';
 import { useQueryBuilderContext } from './QueryBuilderContext';
-import { QueryBuilderInput } from './QueryBuilderInput';
-import { Column } from './queryBuilderTypesAndConstants';
+import { QueryBuilderInput } from './QueryBuilderInput/QueryBuilderInput';
+import { Column } from '../queryBuilderTypesAndConstants';
 import { QueryPartChip } from './QueryPartChip';
 
 interface QueryBuilderProps {
