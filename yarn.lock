@@ -3297,6 +3297,7 @@ __metadata:
     stylelint-config-standard: "npm:^36.0.1"
     typescript: "npm:~5.6.3"
     typescript-eslint: "npm:^8.13.0"
+    uuid: "npm:^11.0.2"
     vite: "npm:^5.4.10"
   languageName: unknown
   linkType: soft
@@ -4252,6 +4253,15 @@ __metadata:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 10c0/41a5bdd214df2f6c3ecf8622745e4a366c4adced864bc3c833739791aeeeb1838119af7daed4ba36428114b5c67dcda034a79c882e97e43c03e66a4dd7389942
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^11.0.2":
+  version: 11.0.2
+  resolution: "uuid@npm:11.0.2"
+  bin:
+    uuid: dist/esm/bin/uuid
+  checksum: 10c0/bd0670a0d6f77f1932da7544c51c32ceb467f3835382df2265f3275c4981d32c136a08a4369fb027ecfffd0b2ae48f19a28266ef636c7347264d5720e85d5ba0
   languageName: node
   linkType: hard
 
