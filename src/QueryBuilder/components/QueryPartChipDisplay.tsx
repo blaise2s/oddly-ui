@@ -17,7 +17,7 @@ export const QueryPartChipDisplay = ({
   const value = getDisplayValue(queryPart);
   return (
     <Box>
-      <Box component='span'>{column}</Box>
+      <Box component='span'>{sort ? `Group by ${column}` : column}</Box>
       <Box component='span' sx={{ pl: '0.25rem', fontWeight: 700 }}>
         {operator || sort || ''}
       </Box>

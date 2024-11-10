@@ -1,3 +1,5 @@
+import { SxProps } from '@mui/material';
+
 export const ColumnTypes = {
   Numeric: 'numeric',
   Text: 'text',
@@ -78,12 +80,20 @@ export interface User {
   lastName: string;
 }
 
-export const InputFoci = {
+export const FilterInputFoci = {
   Column: 'column',
   Operator: 'operator',
   Value: 'value',
 } as const;
-export type InputFocus = (typeof InputFoci)[keyof typeof InputFoci];
+export type FilterInputFocus =
+  (typeof FilterInputFoci)[keyof typeof FilterInputFoci];
+
+export const GroupingInputFoci = {
+  GroupBy: 'groupBy',
+  Sort: 'Sort',
+} as const;
+export type GroupingInputFocus =
+  (typeof GroupingInputFoci)[keyof typeof GroupingInputFoci];
 
 // Operators //
 export const EqualsText: Operator = {
@@ -209,6 +219,11 @@ export const DefaultMultiselectOperators: Operator[] = [
 ];
 // End Operators //
 
+export const SORTS: Sort[] = [
+  { id: SortIds.Asc, displayText: 'Ascending' },
+  { id: SortIds.Desc, displayText: 'Descending' },
+];
+
 export const USERS: User[] = [
   { id: 'jsmith', firstName: 'John', lastName: 'Smith' },
   { id: 'jdoe', firstName: 'Jane', lastName: 'Doe' },
@@ -278,3 +293,7 @@ export const COLUMNS: Columns[] = [
     operators: DefaultNumericOperators,
   },
 ];
+
+export interface BaseQueryBuilderInputFieldProps {
+  textFieldOverrides?: SxProps;
+}

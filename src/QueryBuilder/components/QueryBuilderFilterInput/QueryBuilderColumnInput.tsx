@@ -1,7 +1,10 @@
 import { Autocomplete, TextField } from '@mui/material';
-import { Column, InputFoci } from '../../queryBuilderTypesAndConstants';
+import {
+  BaseQueryBuilderInputFieldProps,
+  Column,
+  FilterInputFoci,
+} from '../../queryBuilderTypesAndConstants';
 import { useQueryBuilderContext } from '../QueryBuilderContext';
-import { BaseQueryBuilderInputFieldProps } from './queryBuilderInputTypes';
 
 interface QueryBuilderColumnInputProps extends BaseQueryBuilderInputFieldProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -15,7 +18,7 @@ export const QueryBuilderColumnInput = ({
   const {
     currentlyBuildingFilterQuery,
     setCurrentlyBuildingFilterQuery,
-    setInputFocus,
+    setFilterInputFocus,
     columnRef,
   } = useQueryBuilderContext();
 
@@ -34,7 +37,7 @@ export const QueryBuilderColumnInput = ({
           column: column || undefined,
         }));
         if (column) {
-          setInputFocus(InputFoci.Operator);
+          setFilterInputFocus(FilterInputFoci.Operator);
         }
       }}
       renderInput={(params) => (

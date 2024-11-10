@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { SxProps } from '@mui/material';
 import { HTMLInputTypeAttribute } from 'react';
 import {
   ColumnType,
   ColumnTypes,
   QueryPart,
+  QueryPartTypes,
 } from './queryBuilderTypesAndConstants';
 
 export const logQueryParts = (queryParts: QueryPart<any>[]) => {
@@ -48,5 +50,39 @@ export const getTextFieldType = (
     case ColumnTypes.Multiselect:
     default:
       return undefined;
+  }
+};
+
+export const getTextFieldOverrides = (minTextFieldWidth?: string): SxProps => {
+  return {
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        border: 'none',
+      },
+      '& input': {
+        ...(minTextFieldWidth && {
+          minWidth: `${minTextFieldWidth} !important`,
+        }),
+      },
+    },
+  };
+};
+
+export const sortGroupingsToTheEnd = (
+  queryPart1: QueryPart<any>,
+  queryPart2: QueryPart<any>,
+) => {
+  if (
+    queryPart1.type === QueryPartTypes.Grouping &&
+    queryPart2.type !== QueryPartTypes.Grouping
+  ) {
+    return 1;
+  } else if (
+    queryPart1.type !== QueryPartTypes.Grouping &&
+    queryPart2.type === QueryPartTypes.Grouping
+  ) {
+    return -1;
+  } else {
+    return 0;
   }
 };
