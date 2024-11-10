@@ -17,13 +17,16 @@ export const QueryViewer = ({ sx }: QueryViewerProps) => {
   return (
     <Box sx={sx}>
       {queryParts.map((queryPart, index) => {
+        const operator = queryPart?.operator;
         return (
           <Box key={queryPart.id} component='span'>
             <Typography component='span'>
               <Box component='span'>{queryPart.column.displayText}</Box>
-              <Box component='span' px='0.25rem'>
-                {queryPart.operator.displayText}
-              </Box>
+              {operator && (
+                <Box component='span' px='0.25rem'>
+                  {operator.displayText}
+                </Box>
+              )}
               <Box component='span'>{getDisplayValue(queryPart)}</Box>
             </Typography>
             {index < andQueryParts && (

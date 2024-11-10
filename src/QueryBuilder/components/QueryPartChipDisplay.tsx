@@ -12,15 +12,19 @@ export const QueryPartChipDisplay = ({
 }: QueryPartChipDisplayProps) => {
   const column = queryPart.column.displayText;
   const operator =
-    queryPart.operator?.chipDisplayText || queryPart.operator.displayText;
+    queryPart?.operator?.chipDisplayText || queryPart?.operator?.displayText;
   const value = getDisplayValue(queryPart);
   return (
     <Box>
       <Box component='span'>{column}</Box>
-      <Box component='span' sx={{ px: '0.25rem', fontWeight: 700 }}>
+      <Box component='span' sx={{ pl: '0.25rem', fontWeight: 700 }}>
         {operator}
       </Box>
-      <Box component='span'>{value}</Box>
+      {value && (
+        <Box component='span' pl='0.25rem'>
+          {value}
+        </Box>
+      )}
     </Box>
   );
 };

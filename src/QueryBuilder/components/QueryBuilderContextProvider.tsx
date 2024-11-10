@@ -32,12 +32,16 @@ export const QueryBuilderContextProvider = ({
   const valueRef = useRef<HTMLInputElement | null>(null);
 
   const handleAddQueryPart = (query: Partial<QueryPart<any>>) => {
-    if (query.column && query.operator && query.value) {
+    if (
+      query.column &&
+      query.operator &&
+      (query.value || query.operator.valueNotRequired)
+    ) {
       const newPart: QueryPart<any> = {
         id: uuidv7(),
         column: query.column,
         operator: query.operator,
-        value: query.value,
+        value: query?.value,
       };
       setQueryParts((previousQueryParts) => {
         const newQueryParts = [...previousQueryParts, newPart];

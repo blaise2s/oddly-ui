@@ -21,6 +21,8 @@ export const OperatorIds = {
   LessThanEqualToSymbol: 'lessThanEqualToSymbol',
   Is: 'is',
   IsNot: 'isNot',
+  IsSet: 'isSet',
+  IsNotSet: 'isNotSet',
   Contains: 'contains',
   NotContain: 'notContains',
 } as const;
@@ -30,6 +32,18 @@ export interface Operator {
   id: OperatorId;
   displayText: string;
   chipDisplayText?: string;
+  valueNotRequired?: boolean;
+}
+
+export const SortIds = {
+  Asc: 'asc',
+  Desc: 'desc',
+} as const;
+export type SortId = (typeof SortIds)[keyof typeof SortIds];
+
+export interface Sort {
+  id: SortId;
+  displayText: string;
 }
 
 export interface Column<T> {
@@ -42,11 +56,19 @@ export interface Column<T> {
   valueIdProp?: keyof T;
 }
 
+export const QueryPartTypes = {
+  Filter: 'filter',
+  Grouping: 'grouping',
+} as const;
+export type QueryPartType =
+  (typeof QueryPartTypes)[keyof typeof QueryPartTypes];
+
 export interface QueryPart<T> {
   id: string;
   column: Column<T>;
-  operator: Operator;
-  value: T | T[];
+  operator?: Operator;
+  sort?: Sort;
+  value?: T | T[];
 }
 
 export interface User {
@@ -127,6 +149,16 @@ export const IsNot: Operator = {
   displayText: 'is not',
   chipDisplayText: '!=',
 };
+export const IsSet: Operator = {
+  id: OperatorIds.IsSet,
+  displayText: 'is set',
+  valueNotRequired: true,
+};
+export const IsNotSet: Operator = {
+  id: OperatorIds.IsNotSet,
+  displayText: 'is not set',
+  valueNotRequired: true,
+};
 export const Contains: Operator = {
   id: OperatorIds.Contains,
   displayText: 'contains',
@@ -151,6 +183,8 @@ export const DefaultNumericOperators: Operator[] = [
   LessThanEqualToSymbol,
   Is,
   IsNot,
+  IsSet,
+  IsNotSet,
 ];
 
 export const DefaultTextOperators: Operator[] = [
@@ -160,8 +194,17 @@ export const DefaultTextOperators: Operator[] = [
   NotEqualSymbol,
   Is,
   IsNot,
+  IsSet,
+  IsNotSet,
   Contains,
   NotContain,
+];
+
+export const DefaultMultiselectOperators: Operator[] = [
+  EqualsText,
+  NotEqualText,
+  EqualsSymbol,
+  NotEqualSymbol,
 ];
 // End Operators //
 
@@ -209,7 +252,7 @@ export const COLUMNS: Columns[] = [
     id: 'country',
     displayText: 'Country',
     type: ColumnTypes.Multiselect,
-    operators: [EqualsText, NotEqualText, EqualsSymbol, NotEqualSymbol],
+    operators: DefaultMultiselectOperators,
     values: COUNTRIES,
   },
   {
@@ -222,7 +265,7 @@ export const COLUMNS: Columns[] = [
     id: 'username',
     displayText: 'Username',
     type: ColumnTypes.Multiselect,
-    operators: [EqualsText, NotEqualText, EqualsSymbol, NotEqualSymbol],
+    operators: DefaultMultiselectOperators,
     valueDisplayTextProp: 'id',
     valueIdProp: 'id',
     values: USERS,

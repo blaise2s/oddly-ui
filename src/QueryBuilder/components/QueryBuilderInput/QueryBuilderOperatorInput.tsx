@@ -11,6 +11,7 @@ export const QueryBuilderOperatorInput = ({
     setCurrentlyBuildingQuery,
     setInputFocus,
     operatorRef,
+    setAddNewQuery,
   } = useQueryBuilderContext();
 
   return (
@@ -28,8 +29,10 @@ export const QueryBuilderOperatorInput = ({
           ...previous,
           operator: operator || undefined,
         }));
-        if (operator) {
+        if (operator && !operator.valueNotRequired) {
           setInputFocus(InputFoci.Value);
+        } else if (operator) {
+          setAddNewQuery(true);
         }
       }}
       renderInput={(params) => (
