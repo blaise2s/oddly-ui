@@ -7,23 +7,32 @@ import {
   SetStateAction,
   useContext,
 } from 'react';
-import { InputFocus, QueryPart } from '../queryBuilderTypesAndConstants';
+import {
+  InputFocus,
+  QueryPart,
+  QueryPartType,
+} from '../queryBuilderTypesAndConstants';
 
 export interface QueryBuilderContextType {
   queryParts: QueryPart<any>[];
   setQueryParts: Dispatch<SetStateAction<QueryPart<any>[]>>;
-  currentlyBuildingQuery: Partial<QueryPart<any>>;
-  setCurrentlyBuildingQuery: Dispatch<SetStateAction<Partial<QueryPart<any>>>>;
+  currentlyBuildingFilterQuery: Partial<QueryPart<any>>;
+  setCurrentlyBuildingFilterQuery: Dispatch<
+    SetStateAction<Partial<QueryPart<any>>>
+  >;
   inputFocus: InputFocus;
   setInputFocus: Dispatch<SetStateAction<InputFocus>>;
-  addNewQuery: boolean;
-  setAddNewQuery: Dispatch<SetStateAction<boolean>>;
+  addNewNewQuery: QueryPartType | null;
+  setAddNewQueryPart: Dispatch<SetStateAction<QueryPartType | null>>;
   chipRefs: MutableRefObject<(HTMLDivElement | null)[]>;
   columnRef: MutableRefObject<HTMLDivElement | null>;
   operatorRef: MutableRefObject<HTMLDivElement | null>;
   valueRef: MutableRefObject<HTMLDivElement | null>;
 
-  handleAddQueryPart: (query: Partial<QueryPart<any>>) => void;
+  handleAddQueryPart: (
+    query: Partial<QueryPart<any>>,
+    type: QueryPartType,
+  ) => void;
   handleKeyDown: (event: KeyboardEvent) => void;
   handleDeleteQueryPartChip: (id: string) => void;
   handleQueryPartChipKeyDown: (event: KeyboardEvent, index: number) => void;

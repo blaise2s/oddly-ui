@@ -1,14 +1,15 @@
 import { Chip } from '@mui/material';
 import { KeyboardEvent } from 'react';
+import { ColumnTypes, QueryPart } from '../queryBuilderTypesAndConstants';
 import { QueryPartChipDisplay } from './QueryPartChipDisplay';
-import {
-  ColumnType,
-  ColumnTypes,
-  QueryPart,
-} from '../queryBuilderTypesAndConstants';
 
-const getChipColor = (columnType: ColumnType) => {
-  switch (columnType) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getChipColor = (queryPart: QueryPart<any>) => {
+  if (queryPart?.sort) {
+    return 'default';
+  }
+
+  switch (queryPart.column.type) {
     case ColumnTypes.Text:
       return 'info';
     case ColumnTypes.Numeric:
@@ -36,7 +37,7 @@ export const QueryPartChip = ({
   handleQueryPartChipKeyDown,
   getRef,
 }: QueryPartChipProps) => {
-  const color = getChipColor(queryPart.column.type);
+  const color = getChipColor(queryPart);
   return (
     <Chip
       color={color}

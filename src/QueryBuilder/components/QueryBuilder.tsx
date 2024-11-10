@@ -21,9 +21,9 @@ export const QueryBuilder = ({
 }: QueryBuilderProps) => {
   const {
     queryParts,
-    currentlyBuildingQuery,
-    addNewQuery,
-    setAddNewQuery,
+    currentlyBuildingFilterQuery,
+    addNewNewQuery,
+    setAddNewQueryPart,
     chipRefs,
     handleAddQueryPart,
     handleKeyDown,
@@ -32,11 +32,16 @@ export const QueryBuilder = ({
   } = useQueryBuilderContext();
 
   useEffect(() => {
-    if (addNewQuery) {
-      handleAddQueryPart(currentlyBuildingQuery);
-      setAddNewQuery(false);
+    if (addNewNewQuery !== null) {
+      handleAddQueryPart(currentlyBuildingFilterQuery, addNewNewQuery);
+      setAddNewQueryPart(null);
     }
-  }, [addNewQuery, handleAddQueryPart, currentlyBuildingQuery, setAddNewQuery]);
+  }, [
+    addNewNewQuery,
+    handleAddQueryPart,
+    currentlyBuildingFilterQuery,
+    setAddNewQueryPart,
+  ]);
 
   return (
     <Box onKeyDown={handleKeyDown} tabIndex={-1} sx={queryBuilderSx}>

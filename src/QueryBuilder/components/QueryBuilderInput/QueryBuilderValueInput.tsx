@@ -1,5 +1,9 @@
 import { Autocomplete, Box, TextField } from '@mui/material';
-import { ColumnTypes, QueryPart } from '../../queryBuilderTypesAndConstants';
+import {
+  ColumnTypes,
+  QueryPart,
+  QueryPartTypes,
+} from '../../queryBuilderTypesAndConstants';
 import { getTextFieldType } from '../../queryBuilderUtils';
 import { useQueryBuilderContext } from '../QueryBuilderContext';
 import { BaseQueryBuilderInputFieldProps } from './queryBuilderInputTypes';
@@ -21,22 +25,22 @@ export const QueryBuilderValueInput = ({
   textFieldOverrides,
 }: BaseQueryBuilderInputFieldProps) => {
   const {
-    currentlyBuildingQuery,
-    setCurrentlyBuildingQuery,
+    currentlyBuildingFilterQuery,
+    setCurrentlyBuildingFilterQuery,
     valueRef,
-    setAddNewQuery,
+    setAddNewQueryPart,
   } = useQueryBuilderContext();
 
-  const columnType = currentlyBuildingQuery?.column?.type;
+  const columnType = currentlyBuildingFilterQuery?.column?.type;
   const valueDisplayTextProp =
-    currentlyBuildingQuery.column?.valueDisplayTextProp;
-  const valueIdProp = currentlyBuildingQuery.column?.valueIdProp;
+    currentlyBuildingFilterQuery.column?.valueDisplayTextProp;
+  const valueIdProp = currentlyBuildingFilterQuery.column?.valueIdProp;
 
   return (
     <Autocomplete
       multiple={columnType === ColumnTypes.Multiselect}
       freeSolo={columnType !== ColumnTypes.Multiselect}
-      options={currentlyBuildingQuery?.column?.values || []}
+      options={currentlyBuildingFilterQuery?.column?.values || []}
       getOptionLabel={(value) => {
         // Needed to handle freeSolo
         if (typeof value === 'string' || value instanceof String) {
@@ -45,9 +49,9 @@ export const QueryBuilderValueInput = ({
         return valueDisplayTextProp ? value[valueDisplayTextProp] : value;
       }}
       getOptionKey={(value) => (valueIdProp ? value[valueIdProp] : value)}
-      value={getValue(currentlyBuildingQuery)}
+      value={getValue(currentlyBuildingFilterQuery)}
       onChange={(_event, value) => {
-        setCurrentlyBuildingQuery((previous) => ({
+        setCurrentlyBuildingFilterQuery((previous) => ({
           ...previous,
           value: value || undefined,
         }));
@@ -71,7 +75,7 @@ export const QueryBuilderValueInput = ({
               <>
                 <Box
                   sx={{ textWrap: 'nowrap' }}
-                >{`${currentlyBuildingQuery?.column?.displayText || ''} ${currentlyBuildingQuery?.operator?.displayText || ''}`}</Box>
+                >{`${currentlyBuildingFilterQuery?.column?.displayText || ''} ${currentlyBuildingFilterQuery?.operator?.displayText || ''}`}</Box>
                 <>{params.InputProps.startAdornment}</>
               </>
             ),
@@ -81,7 +85,7 @@ export const QueryBuilderValueInput = ({
               columnType !== ColumnTypes.Multiselect &&
               event.key === 'Enter'
             ) {
-              setAddNewQuery(true);
+              setAddNewQueryPart(QueryPartTypes.Filter);
               event.preventDefault();
             }
             if (
@@ -91,7 +95,7 @@ export const QueryBuilderValueInput = ({
                 event.ctrlKey) &&
               event.key === 'Enter'
             ) {
-              setAddNewQuery(true);
+              setAddNewQueryPart(QueryPartTypes.Filter);
               event.preventDefault();
             }
           }}

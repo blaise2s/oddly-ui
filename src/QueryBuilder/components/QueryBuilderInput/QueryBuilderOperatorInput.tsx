@@ -1,5 +1,5 @@
 import { Autocomplete, TextField } from '@mui/material';
-import { InputFoci } from '../../queryBuilderTypesAndConstants';
+import { InputFoci, QueryPartTypes } from '../../queryBuilderTypesAndConstants';
 import { useQueryBuilderContext } from '../QueryBuilderContext';
 import { BaseQueryBuilderInputFieldProps } from './queryBuilderInputTypes';
 
@@ -7,32 +7,32 @@ export const QueryBuilderOperatorInput = ({
   textFieldOverrides,
 }: BaseQueryBuilderInputFieldProps) => {
   const {
-    currentlyBuildingQuery,
-    setCurrentlyBuildingQuery,
+    currentlyBuildingFilterQuery,
+    setCurrentlyBuildingFilterQuery,
     setInputFocus,
     operatorRef,
-    setAddNewQuery,
+    setAddNewQueryPart,
   } = useQueryBuilderContext();
 
   return (
     <Autocomplete
-      options={currentlyBuildingQuery?.column?.operators || []}
+      options={currentlyBuildingFilterQuery?.column?.operators || []}
       getOptionLabel={(operator) => operator.displayText}
       getOptionKey={(operator) => operator.id}
       value={
-        currentlyBuildingQuery?.operator
-          ? currentlyBuildingQuery.operator
+        currentlyBuildingFilterQuery?.operator
+          ? currentlyBuildingFilterQuery.operator
           : undefined
       }
       onChange={(_event, operator) => {
-        setCurrentlyBuildingQuery((previous) => ({
+        setCurrentlyBuildingFilterQuery((previous) => ({
           ...previous,
           operator: operator || undefined,
         }));
         if (operator && !operator.valueNotRequired) {
           setInputFocus(InputFoci.Value);
         } else if (operator) {
-          setAddNewQuery(true);
+          setAddNewQueryPart(QueryPartTypes.Filter);
         }
       }}
       renderInput={(params) => (
@@ -44,7 +44,7 @@ export const QueryBuilderOperatorInput = ({
           // TODO: InputProps is deprecated, but slotProps did not work as expected, submit bug to MUI
           InputProps={{
             ...params.InputProps,
-            startAdornment: `${currentlyBuildingQuery?.column?.displayText || ''}`,
+            startAdornment: `${currentlyBuildingFilterQuery?.column?.displayText || ''}`,
           }}
           sx={{ ...textFieldOverrides }}
         />

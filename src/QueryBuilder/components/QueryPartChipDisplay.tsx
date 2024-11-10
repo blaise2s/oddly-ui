@@ -13,12 +13,13 @@ export const QueryPartChipDisplay = ({
   const column = queryPart.column.displayText;
   const operator =
     queryPart?.operator?.chipDisplayText || queryPart?.operator?.displayText;
+  const sort = queryPart?.sort?.displayText;
   const value = getDisplayValue(queryPart);
   return (
     <Box>
       <Box component='span'>{column}</Box>
       <Box component='span' sx={{ pl: '0.25rem', fontWeight: 700 }}>
-        {operator}
+        {operator || sort || ''}
       </Box>
       {value && (
         <Box component='span' pl='0.25rem'>

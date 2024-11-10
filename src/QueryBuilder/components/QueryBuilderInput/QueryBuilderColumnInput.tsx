@@ -13,8 +13,8 @@ export const QueryBuilderColumnInput = ({
   textFieldOverrides,
 }: QueryBuilderColumnInputProps) => {
   const {
-    currentlyBuildingQuery,
-    setCurrentlyBuildingQuery,
+    currentlyBuildingFilterQuery,
+    setCurrentlyBuildingFilterQuery,
     setInputFocus,
     columnRef,
   } = useQueryBuilderContext();
@@ -25,12 +25,12 @@ export const QueryBuilderColumnInput = ({
       getOptionLabel={(column) => column.displayText}
       getOptionKey={(column) => column.id}
       value={
-        currentlyBuildingQuery?.column
-          ? currentlyBuildingQuery.column
+        currentlyBuildingFilterQuery?.column
+          ? currentlyBuildingFilterQuery.column
           : undefined
       }
       onChange={(_event, column) => {
-        setCurrentlyBuildingQuery(() => ({
+        setCurrentlyBuildingFilterQuery(() => ({
           column: column || undefined,
         }));
         if (column) {

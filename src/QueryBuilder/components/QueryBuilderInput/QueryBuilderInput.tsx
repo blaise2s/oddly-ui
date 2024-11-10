@@ -32,7 +32,7 @@ export const QueryBuilderInput = ({
   sx,
 }: QueryBuilderInputProps) => {
   const {
-    currentlyBuildingQuery,
+    currentlyBuildingFilterQuery,
     inputFocus,
     columnRef,
     operatorRef,
@@ -66,13 +66,14 @@ export const QueryBuilderInput = ({
         />
       )}
 
-      {inputFocus === InputFoci.Operator && currentlyBuildingQuery.column && (
-        <QueryBuilderOperatorInput textFieldOverrides={textFieldOverrides} />
-      )}
+      {inputFocus === InputFoci.Operator &&
+        currentlyBuildingFilterQuery.column && (
+          <QueryBuilderOperatorInput textFieldOverrides={textFieldOverrides} />
+        )}
 
       {inputFocus === InputFoci.Value &&
-        currentlyBuildingQuery.column &&
-        currentlyBuildingQuery.operator && (
+        currentlyBuildingFilterQuery.column &&
+        currentlyBuildingFilterQuery.operator && (
           <QueryBuilderValueInput textFieldOverrides={textFieldOverrides} />
         )}
     </Box>

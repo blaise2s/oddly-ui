@@ -65,6 +65,7 @@ export type QueryPartType =
 
 export interface QueryPart<T> {
   id: string;
+  type: QueryPartType;
   column: Column<T>;
   operator?: Operator;
   sort?: Sort;

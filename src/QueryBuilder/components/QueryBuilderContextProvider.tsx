@@ -5,6 +5,7 @@ import {
   InputFoci,
   InputFocus,
   QueryPart,
+  QueryPartType,
 } from '../queryBuilderTypesAndConstants';
 import { logQueryParts } from '../queryBuilderUtils';
 import {
@@ -20,35 +21,41 @@ export const QueryBuilderContextProvider = ({
   children,
 }: QueryBuilderContextProviderProps) => {
   const [queryParts, setQueryParts] = useState<QueryPart<any>[]>([]);
-  const [currentlyBuildingQuery, setCurrentlyBuildingQuery] = useState<
-    Partial<QueryPart<any>>
-  >({});
+  const [currentlyBuildingFilterQuery, setCurrentlyBuildingFilterQuery] =
+    useState<Partial<QueryPart<any>>>({});
   const [inputFocus, setInputFocus] = useState<InputFocus>(InputFoci.Column);
-  const [addNewQuery, setAddNewQuery] = useState(false);
+  const [addNewNewQuery, setAddNewQueryPart] = useState<QueryPartType | null>(
+    null,
+  );
 
   const chipRefs = useRef<(HTMLDivElement | null)[]>([]);
   const columnRef = useRef<HTMLInputElement | null>(null);
   const operatorRef = useRef<HTMLInputElement | null>(null);
   const valueRef = useRef<HTMLInputElement | null>(null);
 
-  const handleAddQueryPart = (query: Partial<QueryPart<any>>) => {
+  const handleAddQueryPart = (
+    query: Partial<QueryPart<any>>,
+    type: QueryPartType,
+  ) => {
     if (
       query.column &&
-      query.operator &&
-      (query.value || query.operator.valueNotRequired)
+      ((query.operator && (query.value || query.operator.valueNotRequired)) ||
+        query.sort)
     ) {
       const newPart: QueryPart<any> = {
         id: uuidv7(),
+        type,
         column: query.column,
-        operator: query.operator,
+        operator: query?.operator,
         value: query?.value,
+        sort: query?.sort,
       };
       setQueryParts((previousQueryParts) => {
         const newQueryParts = [...previousQueryParts, newPart];
         logQueryParts(newQueryParts);
         return newQueryParts;
       });
-      setCurrentlyBuildingQuery({});
+      setCurrentlyBuildingFilterQuery({});
       setInputFocus(InputFoci.Column);
     }
   };
@@ -73,11 +80,14 @@ export const QueryBuilderContextProvider = ({
         break;
 
       case 'ArrowRight':
-        if (inputFocus === InputFoci.Column && currentlyBuildingQuery.column) {
+        if (
+          inputFocus === InputFoci.Column &&
+          currentlyBuildingFilterQuery.column
+        ) {
           setInputFocus(InputFoci.Operator);
         } else if (
           inputFocus === InputFoci.Operator &&
-          currentlyBuildingQuery.operator
+          currentlyBuildingFilterQuery.operator
         ) {
           setInputFocus(InputFoci.Value);
         }
@@ -118,12 +128,12 @@ export const QueryBuilderContextProvider = ({
   const queryBuilderContext: QueryBuilderContextType = {
     queryParts,
     setQueryParts,
-    currentlyBuildingQuery,
-    setCurrentlyBuildingQuery,
+    currentlyBuildingFilterQuery,
+    setCurrentlyBuildingFilterQuery,
     inputFocus,
     setInputFocus,
-    addNewQuery,
-    setAddNewQuery,
+    addNewNewQuery,
+    setAddNewQueryPart,
     chipRefs,
     columnRef,
     operatorRef,
