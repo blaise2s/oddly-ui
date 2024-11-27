@@ -4243,16 +4243,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["postcss", [\
-      ["npm:8.4.47", {\
-        "packageLocation": "./.yarn/cache/postcss-npm-8.4.47-2f4d4be1fa-929f68b508.zip/node_modules/postcss/",\
-        "packageDependencies": [\
-          ["postcss", "npm:8.4.47"],\
-          ["nanoid", "npm:3.3.7"],\
-          ["picocolors", "npm:1.1.1"],\
-          ["source-map-js", "npm:1.2.1"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["npm:8.4.49", {\
         "packageLocation": "./.yarn/cache/postcss-npm-8.4.49-1c13833dd1-f1b3f17aaf.zip/node_modules/postcss/",\
         "packageDependencies": [\
@@ -4286,7 +4276,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["postcss-safe-parser", "virtual:a279d3c8dea1e462cac3279fb125a0237a419718a7a35f81ddbf98c9a67715eb254677ab7a8b2cde63c4a0e90d535624c9c4e02b6b0f06070944bc97027dc758#npm:7.0.1"],\
           ["@types/postcss", null],\
-          ["postcss", "npm:8.4.47"]\
+          ["postcss", "npm:8.4.49"]\
         ],\
         "packagePeers": [\
           "@types/postcss",\
@@ -4919,7 +4909,7 @@ const RAW_RUNTIME_STATE =
           ["micromatch", "npm:4.0.8"],\
           ["normalize-path", "npm:3.0.0"],\
           ["picocolors", "npm:1.1.1"],\
-          ["postcss", "npm:8.4.47"],\
+          ["postcss", "npm:8.4.49"],\
           ["postcss-resolve-nested-selector", "npm:0.1.6"],\
           ["postcss-safe-parser", "virtual:a279d3c8dea1e462cac3279fb125a0237a419718a7a35f81ddbf98c9a67715eb254677ab7a8b2cde63c4a0e90d535624c9c4e02b6b0f06070944bc97027dc758#npm:7.0.1"],\
           ["postcss-selector-parser", "npm:6.1.2"],\
