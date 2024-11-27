@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import { MouseEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const NavBarMenus = {
   Nav: 'nav',

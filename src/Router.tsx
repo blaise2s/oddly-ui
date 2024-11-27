@@ -2,7 +2,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-} from 'react-router-dom';
+} from 'react-router';
 import { App } from './App';
 import { Login } from './Login';
 import { LogoutContainer } from './LogoutContainer';
