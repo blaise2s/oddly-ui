@@ -1,7 +1,10 @@
 import { Autocomplete, TextField } from '@mui/material';
-import { InputFoci, QueryPartTypes } from '../../queryBuilderTypesAndConstants';
+import {
+  BaseQueryBuilderInputFieldProps,
+  FilterInputFoci,
+  QueryPartTypes,
+} from '../../queryBuilderTypesAndConstants';
 import { useQueryBuilderContext } from '../QueryBuilderContext';
-import { BaseQueryBuilderInputFieldProps } from './queryBuilderInputTypes';
 
 export const QueryBuilderOperatorInput = ({
   textFieldOverrides,
@@ -9,7 +12,7 @@ export const QueryBuilderOperatorInput = ({
   const {
     currentlyBuildingFilterQuery,
     setCurrentlyBuildingFilterQuery,
-    setInputFocus,
+    setFilterInputFocus,
     operatorRef,
     setAddNewQueryPart,
   } = useQueryBuilderContext();
@@ -30,7 +33,7 @@ export const QueryBuilderOperatorInput = ({
           operator: operator || undefined,
         }));
         if (operator && !operator.valueNotRequired) {
-          setInputFocus(InputFoci.Value);
+          setFilterInputFocus(FilterInputFoci.Value);
         } else if (operator) {
           setAddNewQueryPart(QueryPartTypes.Filter);
         }

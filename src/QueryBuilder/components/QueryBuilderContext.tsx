@@ -8,7 +8,8 @@ import {
   useContext,
 } from 'react';
 import {
-  InputFocus,
+  FilterInputFocus,
+  GroupingInputFocus,
   QueryPart,
   QueryPartType,
 } from '../queryBuilderTypesAndConstants';
@@ -20,14 +21,22 @@ export interface QueryBuilderContextType {
   setCurrentlyBuildingFilterQuery: Dispatch<
     SetStateAction<Partial<QueryPart<any>>>
   >;
-  inputFocus: InputFocus;
-  setInputFocus: Dispatch<SetStateAction<InputFocus>>;
+  currentlyBuildingGroupingQuery: Partial<QueryPart<any>>;
+  setCurrentlyBuildingGroupingQuery: Dispatch<
+    SetStateAction<Partial<QueryPart<any>>>
+  >;
+  filterInputFocus: FilterInputFocus;
+  setFilterInputFocus: Dispatch<SetStateAction<FilterInputFocus>>;
+  groupingInputFocus: GroupingInputFocus | null;
+  setGroupingInputFocus: Dispatch<SetStateAction<GroupingInputFocus | null>>;
   addNewNewQuery: QueryPartType | null;
   setAddNewQueryPart: Dispatch<SetStateAction<QueryPartType | null>>;
   chipRefs: MutableRefObject<(HTMLDivElement | null)[]>;
   columnRef: MutableRefObject<HTMLDivElement | null>;
   operatorRef: MutableRefObject<HTMLDivElement | null>;
   valueRef: MutableRefObject<HTMLDivElement | null>;
+  groupByRef: MutableRefObject<HTMLDivElement | null>;
+  sortRef: MutableRefObject<HTMLDivElement | null>;
 
   handleAddQueryPart: (
     query: Partial<QueryPart<any>>,

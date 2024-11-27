@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, SxProps } from '@mui/material';
 import { useEffect } from 'react';
+import { Column, QueryPartTypes } from '../queryBuilderTypesAndConstants';
+import { sortGroupingsToTheEnd } from '../queryBuilderUtils';
 import { useQueryBuilderContext } from './QueryBuilderContext';
-import { QueryBuilderInput } from './QueryBuilderInput/QueryBuilderInput';
-import { Column } from '../queryBuilderTypesAndConstants';
+import { QueryBuilderFilterInput } from './QueryBuilderFilterInput/QueryBuilderFilterInput';
+import { QueryBuilderGroupingInput } from './QueryBuilderGroupingInput/QueryBuilderGroupingInput';
 import { QueryPartChip } from './QueryPartChip';
 
 interface QueryBuilderProps {
@@ -22,6 +24,7 @@ export const QueryBuilder = ({
   const {
     queryParts,
     currentlyBuildingFilterQuery,
+    currentlyBuildingGroupingQuery,
     addNewNewQuery,
     setAddNewQueryPart,
     chipRefs,
@@ -33,13 +36,22 @@ export const QueryBuilder = ({
 
   useEffect(() => {
     if (addNewNewQuery !== null) {
-      handleAddQueryPart(currentlyBuildingFilterQuery, addNewNewQuery);
+      switch (addNewNewQuery) {
+        case QueryPartTypes.Filter:
+          handleAddQueryPart(currentlyBuildingFilterQuery, addNewNewQuery);
+          break;
+
+        case QueryPartTypes.Grouping:
+          handleAddQueryPart(currentlyBuildingGroupingQuery, addNewNewQuery);
+          break;
+      }
       setAddNewQueryPart(null);
     }
   }, [
     addNewNewQuery,
     handleAddQueryPart,
     currentlyBuildingFilterQuery,
+    currentlyBuildingGroupingQuery,
     setAddNewQueryPart,
   ]);
 
@@ -53,7 +65,7 @@ export const QueryBuilder = ({
           alignItems: 'center',
         }}
       >
-        {queryParts.map((queryPart, index) => {
+        {queryParts.sort(sortGroupingsToTheEnd).map((queryPart, index) => {
           return (
             <QueryPartChip
               key={queryPart.id}
@@ -67,17 +79,29 @@ export const QueryBuilder = ({
           );
         })}
         {inline && (
-          <QueryBuilderInput
-            columns={columns}
-            minTextFieldWidth={minTextFieldWidth}
-          />
+          <>
+            <QueryBuilderFilterInput
+              columns={columns}
+              minTextFieldWidth={minTextFieldWidth}
+            />
+            <QueryBuilderGroupingInput
+              columns={columns}
+              minTextFieldWidth={minTextFieldWidth}
+            />
+          </>
         )}
       </Box>
       {!inline && (
-        <QueryBuilderInput
-          columns={columns}
-          minTextFieldWidth={minTextFieldWidth}
-        />
+        <>
+          <QueryBuilderFilterInput
+            columns={columns}
+            minTextFieldWidth={minTextFieldWidth}
+          />
+          <QueryBuilderGroupingInput
+            columns={columns}
+            minTextFieldWidth={minTextFieldWidth}
+          />
+        </>
       )}
     </Box>
   );

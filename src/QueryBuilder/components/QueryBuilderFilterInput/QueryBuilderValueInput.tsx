@@ -1,12 +1,12 @@
 import { Autocomplete, Box, TextField } from '@mui/material';
 import {
+  BaseQueryBuilderInputFieldProps,
   ColumnTypes,
   QueryPart,
   QueryPartTypes,
 } from '../../queryBuilderTypesAndConstants';
 import { getTextFieldType } from '../../queryBuilderUtils';
 import { useQueryBuilderContext } from '../QueryBuilderContext';
-import { BaseQueryBuilderInputFieldProps } from './queryBuilderInputTypes';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getValue = (queryPart?: Partial<QueryPart<any>>) => {

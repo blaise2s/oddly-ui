@@ -2,10 +2,13 @@
 import { KeyboardEvent, ReactNode, useRef, useState } from 'react';
 import { v7 as uuidv7 } from 'uuid';
 import {
-  InputFoci,
-  InputFocus,
+  FilterInputFoci,
+  FilterInputFocus,
+  GroupingInputFoci,
+  GroupingInputFocus,
   QueryPart,
   QueryPartType,
+  QueryPartTypes,
 } from '../queryBuilderTypesAndConstants';
 import { logQueryParts } from '../queryBuilderUtils';
 import {
@@ -23,7 +26,13 @@ export const QueryBuilderContextProvider = ({
   const [queryParts, setQueryParts] = useState<QueryPart<any>[]>([]);
   const [currentlyBuildingFilterQuery, setCurrentlyBuildingFilterQuery] =
     useState<Partial<QueryPart<any>>>({});
-  const [inputFocus, setInputFocus] = useState<InputFocus>(InputFoci.Column);
+  const [currentlyBuildingGroupingQuery, setCurrentlyBuildingGroupingQuery] =
+    useState<Partial<QueryPart<any>>>({});
+  const [filterInputFocus, setFilterInputFocus] = useState<FilterInputFocus>(
+    FilterInputFoci.Column,
+  );
+  const [groupingInputFocus, setGroupingInputFocus] =
+    useState<GroupingInputFocus | null>(null);
   const [addNewNewQuery, setAddNewQueryPart] = useState<QueryPartType | null>(
     null,
   );
@@ -32,15 +41,26 @@ export const QueryBuilderContextProvider = ({
   const columnRef = useRef<HTMLInputElement | null>(null);
   const operatorRef = useRef<HTMLInputElement | null>(null);
   const valueRef = useRef<HTMLInputElement | null>(null);
+  const groupByRef = useRef<HTMLInputElement | null>(null);
+  const sortRef = useRef<HTMLInputElement | null>(null);
+
+  const addQueryPart = (queryPart: QueryPart<any>) => {
+    setQueryParts((previousQueryParts) => {
+      const newQueryParts = [...previousQueryParts, queryPart];
+      logQueryParts(newQueryParts);
+      return newQueryParts;
+    });
+  };
 
   const handleAddQueryPart = (
     query: Partial<QueryPart<any>>,
     type: QueryPartType,
   ) => {
     if (
+      type === QueryPartTypes.Filter &&
       query.column &&
-      ((query.operator && (query.value || query.operator.valueNotRequired)) ||
-        query.sort)
+      query.operator &&
+      (query.value || query.operator.valueNotRequired)
     ) {
       const newPart: QueryPart<any> = {
         id: uuidv7(),
@@ -48,15 +68,22 @@ export const QueryBuilderContextProvider = ({
         column: query.column,
         operator: query?.operator,
         value: query?.value,
+      };
+      addQueryPart(newPart);
+      setCurrentlyBuildingFilterQuery({});
+      setFilterInputFocus(FilterInputFoci.Column);
+    }
+
+    if (type === QueryPartTypes.Grouping && query.column && query.sort) {
+      const newPart: QueryPart<any> = {
+        id: uuidv7(),
+        type,
+        column: query.column,
         sort: query?.sort,
       };
-      setQueryParts((previousQueryParts) => {
-        const newQueryParts = [...previousQueryParts, newPart];
-        logQueryParts(newQueryParts);
-        return newQueryParts;
-      });
-      setCurrentlyBuildingFilterQuery({});
-      setInputFocus(InputFoci.Column);
+      addQueryPart(newPart);
+      setCurrentlyBuildingGroupingQuery({});
+      setGroupingInputFocus(GroupingInputFoci.GroupBy);
     }
   };
 
@@ -72,24 +99,31 @@ export const QueryBuilderContextProvider = ({
 
     switch (event.key) {
       case 'ArrowLeft':
-        if (inputFocus === InputFoci.Operator) {
-          setInputFocus(InputFoci.Column);
-        } else if (inputFocus === InputFoci.Value) {
-          setInputFocus(InputFoci.Operator);
+        if (filterInputFocus === FilterInputFoci.Operator) {
+          setFilterInputFocus(FilterInputFoci.Column);
+        } else if (filterInputFocus === FilterInputFoci.Value) {
+          setFilterInputFocus(FilterInputFoci.Operator);
+        } else if (groupingInputFocus === GroupingInputFoci.Sort) {
+          setGroupingInputFocus(GroupingInputFoci.GroupBy);
         }
         break;
 
       case 'ArrowRight':
         if (
-          inputFocus === InputFoci.Column &&
+          filterInputFocus === FilterInputFoci.Column &&
           currentlyBuildingFilterQuery.column
         ) {
-          setInputFocus(InputFoci.Operator);
+          setFilterInputFocus(FilterInputFoci.Operator);
         } else if (
-          inputFocus === InputFoci.Operator &&
+          filterInputFocus === FilterInputFoci.Operator &&
           currentlyBuildingFilterQuery.operator
         ) {
-          setInputFocus(InputFoci.Value);
+          setFilterInputFocus(FilterInputFoci.Value);
+        } else if (
+          groupingInputFocus === GroupingInputFoci.GroupBy &&
+          currentlyBuildingGroupingQuery.column
+        ) {
+          setGroupingInputFocus(GroupingInputFoci.Sort);
         }
         break;
 
@@ -130,14 +164,20 @@ export const QueryBuilderContextProvider = ({
     setQueryParts,
     currentlyBuildingFilterQuery,
     setCurrentlyBuildingFilterQuery,
-    inputFocus,
-    setInputFocus,
+    currentlyBuildingGroupingQuery,
+    setCurrentlyBuildingGroupingQuery,
+    filterInputFocus,
+    setFilterInputFocus,
+    groupingInputFocus,
+    setGroupingInputFocus,
     addNewNewQuery,
     setAddNewQueryPart,
     chipRefs,
     columnRef,
     operatorRef,
     valueRef,
+    groupByRef,
+    sortRef,
     handleAddQueryPart,
     handleKeyDown,
     handleDeleteQueryPartChip,
