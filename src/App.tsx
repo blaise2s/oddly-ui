@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router';
 import { Account } from './Account';
 import { Home } from './Home';
 import { NavBar } from './NavBar';
