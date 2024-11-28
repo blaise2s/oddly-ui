@@ -41,6 +41,7 @@ export const NFLStats = ({ games }: NFLStatsProps) => {
         const isTotal = label === 'total_games';
         return (
           <StatPair
+            key={label}
             label={splitAndCapitalize(label)}
             value={
               isTotal || games?.length === 0
