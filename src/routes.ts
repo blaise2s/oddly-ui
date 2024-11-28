@@ -1,11 +1,11 @@
 export const PublicRoutes = {
-  Login: 'login',
-  Logout: 'logout',
-  QueryBuilder: 'queryBuilder',
+  Login: '/login',
+  Logout: '/logout',
+  QueryBuilder: '/queryBuilder',
 } as const;
 
 export const PrivateRoutes = {
-  Home: '',
-  NFL: 'nfl',
-  Account: 'account',
+  Home: '/',
+  NFL: '/nfl',
+  Account: '/account',
 } as const;
