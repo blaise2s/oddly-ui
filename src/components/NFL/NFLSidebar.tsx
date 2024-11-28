@@ -3,7 +3,7 @@ import NumbersIcon from '@mui/icons-material/Numbers';
 import SportsFootballIcon from '@mui/icons-material/SportsFootball';
 import { Divider } from '@mui/material';
 import { useState } from 'react';
-import { FilterList } from './FilterList';
+import { FilterList } from '../common/FilterList/FilterList';
 import { NFL_ADDITIONAL_FILTERS } from './nflConstants';
 import { useNFLContext } from './NFLContext';
 import {

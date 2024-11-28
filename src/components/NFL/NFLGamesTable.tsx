@@ -20,7 +20,7 @@ import {
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import { format, toDate } from 'date-fns';
-import { Sorts } from './globalTypes';
+import { Sorts } from '../../definitions/globalTypes';
 import { GamesTableColumns, NFLTeamLogoMap } from './nflConstants';
 import { useNFLContext } from './NFLContext';
 import { NFLGame, OverUnderResult, SpreadResult } from './nflTypes';

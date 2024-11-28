@@ -1,4 +1,4 @@
-import { Column, Sorts } from './globalTypes';
+import { Column, Sorts } from '../../definitions/globalTypes';
 import {
   NFL_DIVISIONS,
   NFLAdditionalFilter,

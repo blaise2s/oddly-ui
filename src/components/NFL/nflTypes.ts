@@ -1,4 +1,8 @@
-import { AdditionalFilter, Selectable, Sort } from './globalTypes';
+import {
+  AdditionalFilter,
+  Selectable,
+  Sort,
+} from '../../definitions/globalTypes';
 
 type Location = 'FAVORITE' | 'UNDERDOG' | 'NEUTRAL';
 export type SpreadResult = 'WIN' | 'LOSS' | 'PUSH';

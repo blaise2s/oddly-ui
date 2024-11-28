@@ -10,7 +10,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import { useState } from 'react';
-import { Selectable } from './globalTypes';
+import { Selectable } from '../../../definitions/globalTypes';
 
 interface ExpandableProps {
   listName: string;

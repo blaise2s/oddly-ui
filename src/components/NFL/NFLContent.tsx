@@ -7,7 +7,7 @@ import { useFetchNflGames } from './nflServices';
 import { NFLStats } from './NFLStats';
 import { NFLTabId, NFLTabIds } from './nflTypes';
 import { getSelectedTeamNames } from './nflUtils';
-import { TabPanel } from './TabPanel';
+import { TabPanel } from '../common/TabPanel/TabPanel';
 
 export const NFLContent = () => {
   const { seasons, teams, headToHeadSelected, gameOrderMap } = useNFLContext();
