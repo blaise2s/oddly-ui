@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { NFLGame, NFLGameColumnId } from './nflTypes';
 import { Order } from '../../definitions/globalTypes';
+import { NFLGame, NFLGameColumnId } from './nflTypes';
 
 export const NFLQueryKeys = {
   Games: 'Games',

@@ -6,24 +6,21 @@ import { NFLSidebar } from './NFLSidebar';
 export const NFLContainer = () => {
   return (
     <NFLContextProvider>
-      <Box sx={{ height: '100%', display: 'flex' }}>
+      <Box sx={{ height: '100%', overflow: 'auto', display: 'flex' }}>
         <Box
           sx={(theme) => {
             return {
+              overflow: 'auto',
               width: '18rem',
               borderRight: `1px solid ${theme.palette.grey[300]}`,
               backgroundColor: `${theme.palette.grey[100]}`,
-              overflow: 'auto',
-              paddingBottom: '10rem',
             };
           }}
         >
-          <NFLSidebar />
+          <NFLSidebar sx={{ marginBottom: '10rem' }} />
         </Box>
-        <Box sx={{ flex: '1', overflow: 'auto' }}>
-          <Box height='100%' display='flex' flexDirection='column'>
-            <NFLContent />
-          </Box>
+        <Box sx={{ flex: 1, overflow: 'auto' }}>
+          <NFLContent />
         </Box>
       </Box>
     </NFLContextProvider>

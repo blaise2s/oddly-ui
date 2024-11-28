@@ -1,7 +1,7 @@
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import SportsFootballIcon from '@mui/icons-material/SportsFootball';
-import { Divider } from '@mui/material';
+import { Box, Divider, SxProps } from '@mui/material';
 import { useState } from 'react';
 import { FilterList } from '../common/FilterList/FilterList';
 import { NFL_ADDITIONAL_FILTERS } from './nflConstants';
@@ -20,7 +20,11 @@ import {
   handleDivisionChange,
 } from './nflUtils';
 
-export const NFLSidebar = () => {
+interface NFLSidebarProps {
+  sx?: SxProps;
+}
+
+export const NFLSidebar = ({ sx }: NFLSidebarProps) => {
   const {
     teams,
     setTeams,
@@ -150,7 +154,7 @@ export const NFLSidebar = () => {
   };
 
   return (
-    <>
+    <Box sx={sx}>
       <FilterList
         items={seasons}
         textProp='year'
@@ -189,6 +193,6 @@ export const NFLSidebar = () => {
         selectionMax={headToHeadSelected ? 1 : undefined}
       />
       <Divider />
-    </>
+    </Box>
   );
 };

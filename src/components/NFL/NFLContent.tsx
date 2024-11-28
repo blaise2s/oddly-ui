@@ -1,5 +1,6 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
+import { TabPanel } from '../common/TabPanel/TabPanel';
 import { NFLTabs } from './nflConstants';
 import { useNFLContext } from './NFLContext';
 import { NFLGamesTable } from './NFLGamesTable';
@@ -7,7 +8,6 @@ import { useFetchNflGames } from './nflServices';
 import { NFLStats } from './NFLStats';
 import { NFLTabId, NFLTabIds } from './nflTypes';
 import { getSelectedTeamNames } from './nflUtils';
-import { TabPanel } from '../common/TabPanel/TabPanel';
 
 export const NFLContent = () => {
   const { seasons, teams, headToHeadSelected, gameOrderMap } = useNFLContext();
@@ -33,7 +33,7 @@ export const NFLContent = () => {
   const [activeTabId, setActiveTabId] = useState<NFLTabId>(NFLTabIds.Games);
 
   return (
-    <>
+    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Tabs
         value={activeTabId}
         onChange={(_, tabId) => setActiveTabId(tabId)}
@@ -45,7 +45,7 @@ export const NFLContent = () => {
           return <Tab key={tabId} value={tabId} label={label} />;
         })}
       </Tabs>
-      <Box flex='1' overflow='auto'>
+      <Box sx={{ flex: 1, overflow: 'auto' }}>
         <TabPanel
           activeTabId={activeTabId}
           tabId={NFLTabIds.Games}
@@ -63,6 +63,6 @@ export const NFLContent = () => {
           <NFLStats games={games} />
         </TabPanel>
       </Box>
-    </>
+    </Box>
   );
 };
