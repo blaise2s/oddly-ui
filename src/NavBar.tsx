@@ -14,7 +14,9 @@ import {
   Typography,
 } from '@mui/material';
 import { MouseEvent, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
+import { PrivateRoutes, PublicRoutes } from './routes';
+import { navigateIfNotCurrentPath } from './utils/navigationUtils';
 
 const NavBarMenus = {
   Nav: 'nav',
@@ -30,22 +32,24 @@ interface Page {
 const Pages: Page[] = [
   {
     title: 'NFL',
-    route: 'nfl',
+    route: PrivateRoutes.NFL,
   },
 ];
 const Settings: Page[] = [
   {
     title: 'Account',
-    route: 'account',
+    route: PrivateRoutes.Account,
   },
   {
     title: 'Logout',
-    route: 'logout',
+    route: PublicRoutes.Logout,
   },
 ];
 
 export const NavBar = () => {
-  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const _navigate = useNavigate();
+  const navigate = navigateIfNotCurrentPath(pathname, _navigate);
 
   const [navAnchorEl, setNavAnchorEl] = useState<null | HTMLElement>(null);
   const [userAnchorEl, setUserAnchorEl] = useState<null | HTMLElement>(null);
@@ -76,7 +80,7 @@ export const NavBar = () => {
           <Typography
             variant='h6'
             noWrap
-            onClick={() => navigate('')}
+            onClick={() => navigate(PrivateRoutes.Home)}
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -149,7 +153,7 @@ export const NavBar = () => {
           <Typography
             variant='h5'
             noWrap
-            onClick={() => navigate('')}
+            onClick={() => navigate(PrivateRoutes.Home)}
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
