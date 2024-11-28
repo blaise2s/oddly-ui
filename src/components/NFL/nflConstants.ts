@@ -293,7 +293,7 @@ export const NFL_TEAMS: NFLTeam[] = [
 ];
 
 const START_SEASON = 1979;
-const END_SEASON = 2024;
+const END_SEASON = 2023;
 
 // ? Pull all the seasons from the DB and build selectable list dynamically?
 // ? This would be more relevant than teams as every year there would be a new season.
