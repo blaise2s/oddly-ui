@@ -7,7 +7,17 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['.husky', '.yarn', 'dist', '.pnp.*'] },
+  {
+    ignores: [
+      '.husky',
+      '.vscode/',
+      '.yarn',
+      'dist',
+      '.pnp.*',
+      '*.d.ts',
+      'coverage',
+    ],
+  },
   {
     extends: [
       js.configs.recommended,
