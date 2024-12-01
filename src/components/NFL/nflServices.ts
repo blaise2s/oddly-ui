@@ -21,7 +21,7 @@ const getNflGames = async ({
   headToHead,
 }: NflGamesPayload) => {
   return axios
-    .post<NFLGame[]>('http://localhost:3000/api/nfl/games', {
+    .post<NFLGame[]>('http://3.234.217.120:3000/api/nfl/games', {
       ...(seasons && seasons.length > 0 && { seasons }),
       ...(teams && teams.length > 0 && { teams }),
       ...(orders && orders.length > 0 && { order: orders }),
