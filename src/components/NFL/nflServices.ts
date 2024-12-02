@@ -21,7 +21,7 @@ const getNflGames = async ({
   headToHead,
 }: NflGamesPayload) => {
   return axios
-    .post<NFLGame[]>('https://api.keepernashville.com/api/nfl/games', {
+    .post<NFLGame[]>('https://oddly-api.keepernashville.com/api/nfl/games', {
       ...(seasons && seasons.length > 0 && { seasons }),
       ...(teams && teams.length > 0 && { teams }),
       ...(orders && orders.length > 0 && { order: orders }),
