@@ -73,7 +73,7 @@ const TeamWithLogo = ({
   logoPosition = 'beginning',
 }: TeamWithLogoProps) => {
   return (
-    <Box display='flex' alignItems='center'>
+    <Box display='flex' alignItems='center' justifyContent='space-between'>
       {logoPosition === 'beginning' && (
         <TeamLogo
           currentName={currentName}
