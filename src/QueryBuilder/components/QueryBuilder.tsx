@@ -74,7 +74,9 @@ export const QueryBuilder = ({
               handleQueryPartChipKeyDown={(event) =>
                 handleQueryPartChipKeyDown(event, index)
               }
-              getRef={(element) => (chipRefs.current[index] = element)}
+              getRef={(element) => {
+                chipRefs.current[index] = element;
+              }}
             />
           );
         })}

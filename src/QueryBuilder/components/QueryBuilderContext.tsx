@@ -3,7 +3,7 @@ import {
   createContext,
   Dispatch,
   KeyboardEvent,
-  MutableRefObject,
+  RefObject,
   SetStateAction,
   useContext,
 } from 'react';
@@ -31,12 +31,12 @@ export interface QueryBuilderContextType {
   setGroupingInputFocus: Dispatch<SetStateAction<GroupingInputFocus | null>>;
   addNewNewQuery: QueryPartType | null;
   setAddNewQueryPart: Dispatch<SetStateAction<QueryPartType | null>>;
-  chipRefs: MutableRefObject<(HTMLDivElement | null)[]>;
-  columnRef: MutableRefObject<HTMLDivElement | null>;
-  operatorRef: MutableRefObject<HTMLDivElement | null>;
-  valueRef: MutableRefObject<HTMLDivElement | null>;
-  groupByRef: MutableRefObject<HTMLDivElement | null>;
-  sortRef: MutableRefObject<HTMLDivElement | null>;
+  chipRefs: RefObject<(HTMLDivElement | null)[]>;
+  columnRef: RefObject<HTMLDivElement | null>;
+  operatorRef: RefObject<HTMLDivElement | null>;
+  valueRef: RefObject<HTMLDivElement | null>;
+  groupByRef: RefObject<HTMLDivElement | null>;
+  sortRef: RefObject<HTMLDivElement | null>;
 
   handleAddQueryPart: (
     query: Partial<QueryPart<any>>,

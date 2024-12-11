@@ -1,5 +1,5 @@
 import { Chip } from '@mui/material';
-import { KeyboardEvent } from 'react';
+import { KeyboardEvent, Ref } from 'react';
 import { ColumnTypes, QueryPart } from '../queryBuilderTypesAndConstants';
 import { QueryPartChipDisplay } from './QueryPartChipDisplay';
 
@@ -28,7 +28,7 @@ interface QueryPartChipProps {
   queryPart: QueryPart<any>;
   handleDeleteQueryPartChip: (id: string) => void;
   handleQueryPartChipKeyDown: (event: KeyboardEvent) => void;
-  getRef: (element: HTMLDivElement | null) => HTMLDivElement | null;
+  getRef: Ref<HTMLDivElement | null>;
 }
 
 export const QueryPartChip = ({

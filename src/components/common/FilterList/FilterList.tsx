@@ -9,7 +9,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import { useState } from 'react';
+import { useState, type JSX } from 'react';
 import { Selectable } from '../../../definitions/globalTypes';
 
 interface ExpandableProps {
